@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simfoni Rasa - Orkestrasi Rasa di Dapur Anda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Simfoni Rasa</a>
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#resep">Resep</a></li>
+                    <li><a href="#tips">Tips Masak</a></li>
+                    <li><a href="#tentang">Tentang Kami</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <a href="#" class="btn-login">Login</a>
+                <a href="#" class="btn btn-primary">Daftar</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="beranda">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>Simfoni Rasa</h1>
+                <p>Selamat datang di Simfoni Rasa. Tempat di mana setiap bahan sederhana berpadu dalam harmoni,
+                    menciptakan mahakarya kuliner di dapur Anda. Temukan inspirasi, pelajari tekniknya, dan sajikan
+                    kebahagiaan di setiap piring.</p>
+                <a href="#resep" class="btn btn-secondary">JELAJAHI RESEP</a>
+            </div>
+        </section>
+
+        <section class="recipes container" id="resep">
+            <span class="badge">Resep</span>
+            <h2>Selami Orkestrasi Rasa</h2>
+            <div class="filters">
+                <button class="filter-btn active" data-category="semua">Semua</button>
+                <button class="filter-btn" data-category="pagi">Sajian Pagi</button>
+                <button class="filter-btn" data-category="siang">Makan Siang</button>
+                <button class="filter-btn" data-category="malam">Makan Malam</button>
+                <button class="filter-btn" data-category="dessert">Dessert</button>
+            </div>
+            <!-- THIS SECTION WILL BE POPULATED DYNAMICALLY BY script.js -->
+            <div class="recipe-grid" id="recipe-grid">
+                <!-- Recipe cards will be inserted here dynamically -->
+                <p id="loading-message">Memuat resep...</p>
+            </div>
+        </section>
+
+        <section class="tips container" id="tips">
+            <div class="section-header">
+                <h2>Nada Dapur</h2>
+            </div>
+            <div class="tips-carousel">
+                <article class="tip-card">
+                    <img src="https://images.unsplash.com/photo-1512428237938-f6a5b4855d31?q=80&w=2070"
+                        alt="Mengiris Sayuran">
+                    <div class="tip-content">
+                        <h3>Mengiris Seperti Chef Profesional</h3>
+                        <a href="#">Pelajari Tekniknya &rarr;</a>
+                    </div>
+                </article>
+                <article class="tip-card">
+                    <img src="https://images.unsplash.com/photo-1601215555294-f8793026a782?q=80&w=1887"
+                        alt="Menumis Bumbu">
+                    <div class="tip-content">
+                        <h3>Rahasia Tumisan Lebih Harum</h3>
+                        <a href="#">Lihat Rahasianya &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about container" id="tentang">
+            <div class="about-text">
+                <span class="badge">Tentang Kami</span>
+                <h2>Kisah di Balik Simfoni Rasa</h2>
+                <p>Perjalanan kami adalah sebuah komposisi dari dedikasi, kreativitas, dan komitmen tanpa henti untuk
+                    menyajikan harmoni rasa. Bergabunglah bersama kami untuk meresapi esensi dari setiap hidangan dan
+                    kisah yang terungkap di dalamnya.</p>
+                <a href="#" class="btn btn-outline">Baca Kisah Lengkapnya</a>
+            </div>
+            <div class="about-images">
+                <img src="https://images.unsplash.com/photo-1495195134817-aeb325a55b65?q=80&w=2070" alt="Memasak 1"
+                    class="img1">
+                <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?q=80&w=1780" alt="Memasak 2"
+                    class="img2">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba1a033?q=80&w=2052" alt="Memasak 3"
+                    class="img3">
+            </div>
+        </section>
+
+        <section class="subscribe">
+            <div class="container">
+                <h2>Jangan Ketinggalan Nada Terbaru</h2>
+                <p>Daftarkan email Anda untuk mendapatkan sajian mingguan berisi komposisi resep pilihan, tips memasak,
+                    dan inspirasi eksklusif langsung ke kotak masuk Anda.</p>
+                <form>
+                    <input type="email" placeholder="Alamat Email Anda" required>
+                    <button type="submit" class="btn btn-dark">Berlangganan</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <a href="#" class="logo">Simfoni Rasa</a>
+            <nav class="footer-nav">
+                <a href="#beranda">Beranda</a>
+                <a href="#resep">Resep</a>
+                <a href="#tips">Tips Memasak</a>
+                <a href="#tentang">Tentang Kami</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>COPYRIGHT &copy; 2025 SIMFONI RASA</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

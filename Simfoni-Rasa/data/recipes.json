@@ -1,0 +1,155 @@
+[
+    {
+        "id": 1,
+        "title": "Ayam Panggang Bumbu Herba",
+        "description": "Manjakan lidah Anda dalam simfoni rasa yang kaya dan gurih.",
+        "image": "/images/ayam_panggang.png",
+        "category": "Malam",
+        "time": "40 MENIT",
+        "difficulty": "MUDAH",
+        "servings": "3 PORSI",
+        "ingredients": [
+            "3 potong dada ayam tanpa kulit",
+            "3 sdm minyak zaitun",
+            "2 sdm madu",
+            "1 sdt garam laut",
+            "1 sdt lada hitam",
+            "2 sdt campuran herba (rosemary, thyme, oregano)"
+        ],
+        "steps": [
+            "Panaskan oven hingga 200°C.",
+            "Campurkan minyak zaitun, madu, garam, lada, dan herba dalam wadah.",
+            "Oleskan bumbu ke seluruh permukaan ayam.",
+            "Panggang selama 35-40 menit hingga matang dan kecokelatan.",
+            "Sajikan dengan sayuran panggang atau kentang tumbuk."
+        ],
+        "calories": "450 kcal"
+    },
+    {
+        "id": 2,
+        "title": "Tumis Quinoa dan Sayuran",
+        "description": "Cepat, sehat, dan kaya rasa. Sempurna untuk hidangan sehat.",
+        "image": "/images/tumis.png",
+        "category": "Siang",
+        "time": "20 MENIT",
+        "difficulty": "MUDAH",
+        "servings": "2 PORSI",
+        "ingredients": [
+            "1 cangkir quinoa matang",
+            "1 sdm minyak zaitun",
+            "1 siung bawang putih, cincang halus",
+            "1 wortel, potong dadu",
+            "½ paprika merah, iris tipis",
+            "2 sdm kecap asin rendah sodium"
+        ],
+        "steps": [
+            "Panaskan minyak di wajan.",
+            "Tumis bawang putih hingga harum.",
+            "Masukkan wortel dan paprika, masak hingga agak lunak.",
+            "Tambahkan quinoa dan kecap asin, aduk hingga rata.",
+            "Sajikan hangat."
+        ],
+        "calories": "300 kcal"
+    },
+    {
+        "id": 3,
+        "title": "Mangkuk Smoothie Aneka Beri",
+        "description": "Kaya akan antioksidan untuk memulai hari Anda dengan semangat.",
+        "image": "/images/Smoothie.png",
+        "category": "Pagi",
+        "time": "10 MENIT",
+        "difficulty": "SANGAT MUDAH",
+        "servings": "1 PORSI",
+        "ingredients": [
+            "1 pisang beku",
+            "½ cangkir stroberi beku",
+            "½ cangkir blueberry",
+            "100 ml susu almond",
+            "Granola dan biji chia untuk topping"
+        ],
+        "steps": [
+            "Blender pisang, stroberi, blueberry, dan susu almond hingga halus.",
+            "Tuang ke dalam mangkuk.",
+            "Tambahkan granola dan biji chia di atasnya.",
+            "Nikmati segera!"
+        ],
+        "calories": "280 kcal"
+    },
+    {
+        "id": 4,
+        "title": "Pancake Coklat Fluffy",
+        "description": "Hidangan penutup manis yang lembut dan meleleh di mulut.",
+        "image": "/images/chocolate-pancakes.png",
+        "category": "Dessert",
+        "time": "25 MENIT",
+        "difficulty": "MUDAH",
+        "servings": "4 PORSI",
+        "ingredients": [
+            "1½ cangkir tepung terigu",
+            "2 sdm bubuk kakao",
+            "2 sdm gula",
+            "1 sdt baking powder",
+            "1 butir telur",
+            "200 ml susu",
+            "2 sdm mentega cair"
+        ],
+        "steps": [
+            "Campurkan bahan kering dalam wadah besar.",
+            "Tambahkan telur, susu, dan mentega, aduk hingga rata.",
+            "Panaskan wajan anti lengket, tuang adonan sedikit demi sedikit.",
+            "Balik setelah muncul gelembung di permukaan.",
+            "Sajikan dengan madu atau coklat cair."
+        ],
+        "calories": "350 kcal"
+    },
+    {
+        "id": 5,
+        "title": "Salad Musim Panas Segar",
+        "description": "Pilihan ringan dan menyehatkan untuk makan siang Anda.",
+        "image": "/images/salad.png",
+        "category": "Siang",
+        "time": "15 MENIT",
+        "difficulty": "SANGAT MUDAH",
+        "servings": "2 PORSI",
+        "ingredients": [
+            "1 mentimun, iris tipis",
+            "1 tomat besar, potong dadu",
+            "½ bawang merah, iris tipis",
+            "1 sdm minyak zaitun",
+            "1 sdt cuka apel",
+            "Garam dan lada secukupnya"
+        ],
+        "steps": [
+            "Campurkan semua bahan dalam wadah besar.",
+            "Tuang minyak zaitun dan cuka apel, aduk rata.",
+            "Bumbui dengan garam dan lada.",
+            "Sajikan dingin."
+        ],
+        "calories": "180 kcal"
+    },
+    {
+        "id": 6,
+        "title": "Spaghetti Aglio e Olio",
+        "description": "Klasik, sederhana, namun penuh dengan cita rasa bawang putih.",
+        "image": "images/aglio_e_olio.png",
+        "category": "Malam",
+        "time": "20 MENIT",
+        "difficulty": "MUDAH",
+        "servings": "2 PORSI",
+        "ingredients": [
+            "200 g spaghetti",
+            "3 siung bawang putih, iris tipis",
+            "3 sdm minyak zaitun",
+            "1 sdt cabai kering",
+            "Garam dan peterseli cincang"
+        ],
+        "steps": [
+            "Rebus spaghetti hingga al dente.",
+            "Panaskan minyak zaitun di wajan, masukkan bawang putih dan cabai.",
+            "Tambahkan spaghetti dan aduk rata.",
+            "Bumbui dengan garam dan peterseli.",
+            "Sajikan hangat."
+        ],
+        "calories": "400 kcal"
+    }
+]

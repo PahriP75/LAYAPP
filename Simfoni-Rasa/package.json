@@ -1,0 +1,20 @@
+{
+    "name": "simfoni-rasa-dynamic",
+    "version": "1.0.0",
+    "description": "A dynamic recipe site using native Node.js HTTP server.",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "keywords": [
+        "node",
+        "http",
+        "static",
+        "dynamic"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "package.json": "^2.0.1"
+    }
+}

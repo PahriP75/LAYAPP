@@ -1,0 +1,379 @@
+/* === GENERAL STYLES & VARIABLES === */
+:root {
+    --primary-color: #46462A;
+    --secondary-color: #A0522D; /* Warna Sesuai Gambar */
+    --dark-color: #310F10;
+    --light-color: #FFFFFF;
+    --bg-light: #F9F6F1;
+    --text-color: #4A4A4A;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+    --border-radius: 12px;
+}
+
+/* Menambahkan smooth scroll behavior ke seluruh halaman */
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.badge {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 10px auto;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* === BUTTONS === */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn-primary { background-color: var(--dark-color); color: var(--light-color); }
+.btn-primary:hover { background-color: #555; }
+/* Perbaikan: Mengubah warna teks agar kontras */
+.btn-secondary { background-color: var(--secondary-color); color: var(--light-color); }
+.btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.btn-outline { border: 1px solid var(--dark-color); color: var(--dark-color); background-color: transparent; }
+.btn-outline:hover { background-color: var(--dark-color); color: var(--light-color); }
+.btn-dark { background-color: var(--dark-color); color: var(--light-color); border: none; cursor: pointer;}
+.btn-dark:hover { background-color: #000; }
+
+
+/* === HEADER === */
+header {
+    background: var(--bg-light);
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    position: sticky; /* Membuat header tetap terlihat saat scroll */
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    text-decoration: none;
+}
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+header nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 5px;
+}
+/* Efek hover pada link navigasi */
+header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+header nav a:hover::after {
+    width: 100%;
+}
+
+.header-actions { display: flex; align-items: center; gap: 20px; font-size: 1.1rem; }
+.header-actions .btn-login { text-decoration: none; font-weight: bold; color: var(--dark-color); }
+
+/* === HERO SECTION === */
+/* === HERO SECTION === */
+.hero {
+    position: relative;
+    height: 90vh; /* Sedikit lebih tinggi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--light-color);
+    /* PERBAIKAN: Mengganti spasi dengan underscore untuk kompatibilitas path server */
+    background: url('images/Hero_Section.png') no-repeat center center/cover;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.hero-content { position: relative; z-index: 2; }
+.hero h1 {
+    font-size: 4rem;
+    color: var(--light-color);
+}
+.hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto 2rem auto;
+}
+
+
+/* === RECIPES SECTION === */
+.recipes { padding: 80px 20px; }
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+.filters button {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.filters button:hover {
+    background-color: #e0e0e0;
+}
+.filters button.active {
+    background-color: #46462A;
+    color: var(--light-color);
+    border-color: #46462A;
+}
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.recipe-card {
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    /* Penambahan transisi untuk filter */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.recipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.card-content { padding: 20px; }
+.card-content h3 { font-size: 1.4rem; }
+.card-content p { font-size: 0.9rem; margin: 10px 0; }
+.recipe-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #888;
+    margin: 20px 0;
+}
+.btn-view {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.btn-view:hover {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+/* === TIPS SECTION === */
+.tips { padding: 80px 20px; }
+.section-header {
+    display: flex;
+    justify-content: center; /* Mengubah ke tengah */
+    align-items: center;
+    margin-bottom: 30px;
+}
+.section-header h2 { margin: 0; }
+
+.tips-carousel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+.tip-card {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    color: var(--light-color);
+}
+.tip-card img { width: 100%; display: block; height: 250px; object-fit: cover; transition: transform 0.3s ease; }
+.tip-card:hover img {
+    transform: scale(1.05);
+}
+.tip-content {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.tip-content h3 { color: var(--light-color); }
+.tip-content a { color: var(--light-color); text-decoration: none; font-weight: bold; }
+
+/* === ABOUT SECTION === */
+.about {
+    padding: 80px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    align-items: center;
+}
+.about-text .badge, .about-text h2 { margin-left: 0; text-align: left; }
+.about-text p { margin: 20px 0 30px 0; }
+.about-images {
+    display: grid;
+    grid-template-areas:
+        "img1 img2"
+        "img3 img2";
+    gap: 15px;
+}
+.about-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+.img1 { grid-area: img1; }
+.img2 { grid-area: img2; }
+.img3 { grid-area: img3; }
+
+/* === SUBSCRIBE SECTION === */
+.subscribe {
+    background-color: var(--primary-color);
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--light-color);
+}
+.subscribe h2 { color: var(--light-color); font-size: 3rem; }
+.subscribe p { max-width: 500px; margin: 1rem auto 2rem auto; }
+.subscribe form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Agar responsif */
+}
+.subscribe input {
+    width: 300px;
+    padding: 15px;
+    border-radius: 25px;
+    border: none;
+    font-family: var(--font-body);
+}
+.subscribe button { padding: 15px 30px; border-radius: 25px; }
+
+/* === FOOTER === */
+footer {
+    background-color: var(--dark-color);
+    color: #aaa;
+    padding-top: 50px;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    flex-wrap: wrap; /* Agar responsif */
+    gap: 20px;
+}
+.footer-content .logo { color: var(--light-color); }
+.footer-nav a, .social-icons a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+.footer-nav a:hover, .social-icons a:hover {
+    color: var(--light-color);
+}
+.social-icons {
+    font-size: 1.2rem;
+}
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #444;
+    font-size: 0.9rem;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 992px) {
+    .recipe-grid { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; text-align: center; }
+    .about-text .badge, .about-text h2 { margin: 0 auto 10px auto; text-align: center; }
+}
+
+@media (max-width: 768px) {
+    h2 { font-size: 2rem; }
+    header .container { flex-direction: column; gap: 15px; }
+    header nav ul { gap: 15px; padding: 0; }
+    .recipe-grid { grid-template-columns: 1fr; }
+    .tips-carousel { grid-template-columns: 1fr; }
+    .subscribe form { flex-direction: column; align-items: center; }
+    .subscribe input { width: 100%; max-width: 400px; }
+    .footer-content { flex-direction: column; gap: 20px; }
+    .footer-nav { text-align: center; }
+    .footer-nav a, .social-icons a { margin: 0 10px; }
+}
