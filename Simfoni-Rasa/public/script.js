@@ -51,12 +51,7 @@ function renderRecipes(recipesToDisplay) {
     recipeGrid.appendChild(fragment);
 
     // Add redirect behavior
-    document.querySelectorAll(".btn-view").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const id = e.target.dataset.id;
-            window.location.href = `/recipe.html?id=${id}`;
-        });
-    });
+
 }
 
 // ✅ Function: Filter recipes
@@ -101,5 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const category = btn.dataset.category;
             handleFilter(category);
         });
+    }); // <-- The filterButtons.forEach block ends here.
+
+    // ✅ Add redirect behavior using event delegation
+    // This should be OUTSIDE and AFTER the forEach block
+    recipeGrid.addEventListener("click", e => {
+        // Check if the clicked element or its parent is the button
+        const button = e.target.closest(".btn-view");
+
+        if (button) {
+            e.preventDefault(); // Stop the link from navigating to "#"
+
+            // Find the closest parent <article> tag
+            const card = button.closest(".recipe-card");
+
+            if (card) {
+                // Get the id from the card's data-id attribute
+                const id = card.dataset.id;
+                window.location.href = `/recipe.html?id=${id}`;
+            }
+        }
     });
 });
