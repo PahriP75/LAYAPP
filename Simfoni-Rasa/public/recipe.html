@@ -95,6 +95,28 @@
         .back-btn:hover {
             background-color: #f0f0f0;
         }
+
+        /* === STYLE BARU UNTUK VIDEO === */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* === AKHIR STYLE BARU === */
+
     </style>
 </head>
 
@@ -118,6 +140,14 @@
                 <div><strong id="recipe-calories">-</strong><br>Kalori</div>
             </div>
 
+            <h2 class="section-title" id="video-title">Video Resep</h2>
+            <div class="video-container" id="video-container">
+                <iframe id="recipe-video" width="100%" height="400" src=""
+                    title="Video resep" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
             <h2 class="section-title">Bahan-bahan</h2>
             <ul class="ingredients" id="ingredients-list"></ul>
 

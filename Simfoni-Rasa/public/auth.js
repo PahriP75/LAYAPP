@@ -1,62 +1,56 @@
-// public/auth.js
-import { supabase } from './client.js'; // Import our client
+// public/js/auth.js
+import { supabase } from 'client.js';
 
-// --- LOGIN LOGIC ---
+// --- LOGIN ---
 const loginForm = document.getElementById('login-form');
 
 if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-        // This is the Supabase login function
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password,
-        });
-
-        if (error) {
-            alert('Login Gagal: ' + error.message);
-        } else {
-            // Login success!
-            alert('Login Berhasil! Mengalihkan ke halaman utama.');
-            window.location.href = 'index.html'; // Redirect to the main page
-        }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
+
+    if (error) {
+      alert('❌ Login gagal: ' + error.message);
+    } else {
+      alert('✅ Login berhasil!');
+      window.location.href = 'index.html';
+    }
+  });
 }
 
-// --- REGISTER LOGIC ---
+// --- REGISTER ---
 const registerForm = document.getElementById('register-form');
 
 if (registerForm) {
-    registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-        // This is the Supabase sign-up function
-        const { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    // This is how you store extra data like 'username'
-                    // This matches your original table!
-                    username: username 
-                }
-            }
-        });
-
-        if (error) {
-            alert('Registrasi Gagal: ' + error.message);
-        } else {
-            // Register success!
-            alert('Registrasi Berhasil! Silakan login.');
-            window.location.href = 'login.html'; // Redirect to the login page
-        }
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username }
+      }
     });
+
+    if (error) {
+      alert('❌ Registrasi gagal: ' + error.message);
+    } else {
+      alert('✅ Registrasi berhasil! Silakan login.');
+      window.location.href = 'login.html';
+    }
+  });
+  
+  
 }

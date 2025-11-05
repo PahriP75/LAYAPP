@@ -40,6 +40,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("recipe-difficulty").textContent = recipe.difficulty || "-";
         document.getElementById("recipe-calories").textContent = recipe.calories || "350 kcal";
 
+        // === LOGIKA BARU UNTUK VIDEO (STEP 5) ===
+        const videoFrame = document.getElementById("recipe-video");
+        const videoContainer = document.getElementById("video-container");
+        const videoTitle = document.getElementById("video-title");
+
+        if (recipe.videoEmbed && videoFrame) {
+            videoFrame.src = recipe.videoEmbed;
+        } else {
+            // Sembunyikan bagian video jika URL tidak ada
+            if (videoContainer) videoContainer.style.display = "none";
+            if (videoTitle) videoTitle.style.display = "none";
+        }
+        // === AKHIR LOGIKA BARU ===
+
         const ingredients = recipe.ingredients || [
             "1 ekor ayam utuh",
             "2 sdm minyak zaitun",
@@ -67,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const li = document.createElement("li");
             li.textContent = step;
             stepsList.appendChild(li);
-        });``
+        });
 
     } catch (err) {
         document.body.innerHTML = `

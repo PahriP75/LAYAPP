@@ -23,7 +23,8 @@
             "Panggang selama 35-40 menit hingga matang dan kecokelatan.",
             "Sajikan dengan sayuran panggang atau kentang tumbuk."
         ],
-        "calories": "450 kcal"
+        "calories": "450 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/YmY1N32ljD0"
     },
     {
         "id": 2,
@@ -49,7 +50,8 @@
             "Tambahkan quinoa dan kecap asin, aduk hingga rata.",
             "Sajikan hangat."
         ],
-        "calories": "300 kcal"
+        "calories": "300 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/QJkEs9B34X8"
     },
     {
         "id": 3,
@@ -73,7 +75,8 @@
             "Tambahkan granola dan biji chia di atasnya.",
             "Nikmati segera!"
         ],
-        "calories": "280 kcal"
+        "calories": "280 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/f1p6W1bTxQc"
     },
     {
         "id": 4,
@@ -100,7 +103,8 @@
             "Balik setelah muncul gelembung di permukaan.",
             "Sajikan dengan madu atau coklat cair."
         ],
-        "calories": "350 kcal"
+        "calories": "350 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/gKiA5Gn92DU"
     },
     {
         "id": 5,
@@ -125,7 +129,8 @@
             "Bumbui dengan garam dan lada.",
             "Sajikan dingin."
         ],
-        "calories": "180 kcal"
+        "calories": "180 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/3Ouv5BO2Lrc"
     },
     {
         "id": 6,
@@ -150,6 +155,7 @@
             "Bumbui dengan garam dan peterseli.",
             "Sajikan hangat."
         ],
-        "calories": "400 kcal"
+        "calories": "400 kcal",
+        "videoEmbed": "https://www.youtube.com/embed/UL_QqRmawGs"
     }
 ]
