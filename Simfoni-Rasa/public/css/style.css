@@ -132,7 +132,6 @@ header nav a:hover::after {
 .header-actions .btn-login { text-decoration: none; font-weight: bold; color: var(--dark-color); }
 
 /* === HERO SECTION === */
-/* === HERO SECTION === */
 .hero {
     position: relative;
     height: 90vh; /* Sedikit lebih tinggi */
@@ -142,7 +141,7 @@ header nav a:hover::after {
     text-align: center;
     color: var(--light-color);
     /* PERBAIKAN: Mengganti spasi dengan underscore untuk kompatibilitas path server */
-    background: url('images/Hero_Section.png') no-repeat center center/cover;
+    background: url('../images/Hero_Section.png') no-repeat center center/cover;
 }
 .hero-overlay {
     position: absolute;
@@ -562,4 +561,121 @@ footer {
     padding: 6px;
     margin-top: 6px;
     border-radius: 6px;
+}
+
+/* ========================
+   HEADER / NAV STYLES
+   ======================== */
+.header-nav {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.header-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.header-nav nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.header-nav nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.header-nav nav a.btn {
+    padding: 0.5rem 1rem;
+}
+
+
+/* ========================
+   PROFILE PAGE STYLES
+   ======================== */
+.profile-card {
+    /* Re-using your auth-card style for consistency */
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.profile-card h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.profile-info i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.profile-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-color-light);
+}
+.profile-info p strong {
+    display: block;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+/* Style for the logout button */
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Adjust as needed */
+}
+
+/* This makes the buttons inside our new divs line up */
+.nav-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Adjust as needed */
+}
+
+/* Hide the 'Profil' button by default */
+#nav-user {
+    display: none;
 }

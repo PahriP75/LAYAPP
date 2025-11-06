@@ -1,5 +1,5 @@
 // public/js/auth.js
-import { supabase } from 'client.js';
+import  supabase  from './client.js';
 
 // --- LOGIN ---
 const loginForm = document.getElementById('login-form');

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Simfoni Rasa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="container">
+            <a href="index.html" class="logo">Simfoni Rasa</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="public.html">Resep</a>
+                <a href="profile.html" class="btn btn-primary">Profil</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="profile-card">
+            <h2>Profil Saya</h2>
+            <div class="profile-info">
+                <i class="fa-solid fa-envelope"></i>
+                <p>
+                    <strong>Email:</strong>
+                    <span id="user-email">Memuat...</span>
+                </p>
+            </div>
+            
+            <button id="logout-button" class="btn btn-danger">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </main>
+
+    <script type="module" src="js/profile.js"></script>
+
+</body>
+</html>

@@ -1,3 +1,35 @@
+import supabase from './client.js';
+
+// This function checks auth state and updates the nav bar
+async function setupNav() {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const navGuest = document.getElementById('nav-guest');
+    const navUser = document.getElementById('nav-user');
+
+    if (user) {
+        // User is logged in
+        if (navGuest) navGuest.style.display = 'none';
+        if (navUser) navUser.style.display = 'flex'; // 'flex' makes it visible
+    } else {
+        // User is logged out
+        if (navGuest) navGuest.style.display = 'flex';
+        if (navUser) navUser.style.display = 'none';
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupNav();
+});
+
+// Also run the function when auth state changes (e.g., user logs in/out)
+// This will update the nav if they log in and come back to this page
+supabase.auth.onAuthStateChange((event, session) => {
+    setupNav();
+});
+
+
 let allRecipes = [];
 
 // DOM references

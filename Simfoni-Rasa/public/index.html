@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simfoni Rasa - Orkestrasi Rasa di Dapur Anda</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,12 +29,18 @@
                     <li><a href="#tentang">Tentang Kami</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <a href="login.html" class="btn-login">Login</a>
-                <a href="register.html" class="btn btn-primary">Daftar</a>
-            </div>
+        <div class="header-actions">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        <div id="nav-guest" class="nav-auth-links">
+            <a href="login.html" class="btn-login">Login</a>
+            <a href="register.html" class="btn btn-primary">Daftar</a>
         </div>
+
+        <div id="nav-user" class="nav-auth-links">
+            <a href="profile.html" class="btn btn-primary">Profil</a>
+        </div>
+    </div>
     </header>
 
     <main>
@@ -143,7 +149,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/script.js"></script>
 </body>
 
 </html>
