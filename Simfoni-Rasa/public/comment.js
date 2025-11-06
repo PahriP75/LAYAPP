@@ -6,4 +6,10 @@ const addComment = async (recipeId, comment) => {
     user_id: user.id,
     comment: comment,
   });
+
+  if (error) {
+    console.error("❌ Error saat menyimpan komentar:", error);
+  } else {
+    console.log("✅ Komentar berhasil tersimpan:", data);
+  }
 };
