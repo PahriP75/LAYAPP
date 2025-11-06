@@ -17,6 +17,19 @@ function createRecipeCard(recipe) {
       <div class="card-content">
         <h3>${recipe.title}</h3>
         <p>${recipe.description}</p>
+        <div class="rating-actions">
+            <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i></button>
+            <span class="like-count">0</span>
+
+            <button class="dislike-btn"><i class="fa-solid fa-thumbs-down"></i></button>
+            <span class="dislike-count">0</span>
+        </div>
+        <div class="comment-section">
+    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+    <button class="submit-comment">Kirim</button>
+    <div class="comments-list"></div>
+</div>
+
         <div class="recipe-meta">
           <span>${recipe.time}</span>
           <span>${recipe.difficulty}</span>
@@ -117,4 +130,55 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+});
+// === LIKE & DISLIKE FUNCTIONALITY ===
+document.addEventListener("click", function (e) {
+    const likeBtn = e.target.closest(".like-btn");
+    const dislikeBtn = e.target.closest(".dislike-btn");
+
+    // LIKE BUTTON CLICKED
+    if (likeBtn) {
+        const card = likeBtn.closest(".rating-actions");
+        const likeCount = card.querySelector(".like-count");
+        const dislikeBtnInside = card.querySelector(".dislike-btn");
+        const dislikeCount = card.querySelector(".dislike-count");
+
+        // Toggle like
+        if (likeBtn.classList.contains("active-like")) {
+            likeBtn.classList.remove("active-like");
+            likeCount.textContent = parseInt(likeCount.textContent) - 1;
+        } else {
+            likeBtn.classList.add("active-like");
+            likeCount.textContent = parseInt(likeCount.textContent) + 1;
+
+            // Jika dislike aktif → matikan
+            if (dislikeBtnInside.classList.contains("active-dislike")) {
+                dislikeBtnInside.classList.remove("active-dislike");
+                dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+            }
+        }
+    }
+
+    // DISLIKE BUTTON CLICKED
+    if (dislikeBtn) {
+        const card = dislikeBtn.closest(".rating-actions");
+        const dislikeCount = card.querySelector(".dislike-count");
+        const likeBtnInside = card.querySelector(".like-btn");
+        const likeCount = card.querySelector(".like-count");
+
+        // Toggle dislike
+        if (dislikeBtn.classList.contains("active-dislike")) {
+            dislikeBtn.classList.remove("active-dislike");
+            dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
+        } else {
+            dislikeBtn.classList.add("active-dislike");
+            dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
+
+            // Jika like aktif → matikan
+            if (likeBtnInside.classList.contains("active-like")) {
+                likeBtnInside.classList.remove("active-like");
+                likeCount.textContent = parseInt(likeCount.textContent) - 1;
+            }
+        }
+    }
 });
