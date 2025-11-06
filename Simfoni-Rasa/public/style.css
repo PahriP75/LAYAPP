@@ -499,3 +499,67 @@ footer {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+/* === LIKE & DISLIKE BUTTON === */
+.rating-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.rating-actions button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-actions button:hover {
+    transform: scale(1.2);
+}
+
+.rating-actions .active-like {
+    color: #2ecc71; /* Hijau */
+}
+
+.rating-actions .active-dislike {
+    color: #e74c3c; /* Merah */
+}
+
+.rating-actions span {
+    font-size: 0.9rem;
+    color: #555;
+    min-width: 20px;
+    text-align: center;
+}
+.comment-section {
+    margin-top: 10px;
+}
+
+.comment-input {
+    width: 100%;
+    min-height: 60px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.submit-comment {
+    margin-top: 6px;
+    padding: 6px 12px;
+    background: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.comments-list p {
+    background: #f4f4f4;
+    padding: 6px;
+    margin-top: 6px;
+    border-radius: 6px;
+}
