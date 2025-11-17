@@ -1,9 +1,11 @@
+// public/js/script.js
+
+// 1. IMPORT
 import supabase from './client.js';
 
-// This function checks auth state and updates the nav bar
+// 2. AUTH LOGIC
 async function setupNav() {
     const { data: { user } } = await supabase.auth.getUser();
-
     const navGuest = document.getElementById('nav-guest');
     const navUser = document.getElementById('nav-user');
 
@@ -18,27 +20,40 @@ async function setupNav() {
     }
 }
 
-
+// Listener khusus untuk setup Navigasi
 document.addEventListener('DOMContentLoaded', () => {
     setupNav();
 });
 
-// Also run the function when auth state changes (e.g., user logs in/out)
-// This will update the nav if they log in and come back to this page
+// Listener untuk perubahan status login
 supabase.auth.onAuthStateChange((event, session) => {
     setupNav();
 });
 
 
+// 3. RECIPE VARIABLES & DOM REFS
 let allRecipes = [];
-
-// DOM references
 const recipeGrid = document.getElementById("recipe-grid");
 const loadingMessage = document.getElementById("loading-message");
 const filterButtons = document.querySelectorAll(".filter-btn");
 
-// ✅ Function: Create recipe card HTML
+
+// 4. RECIPE FUNCTIONS
+
+/**
+ * ✅ FUNGSI BARU: Membuat kartu resep
+ * Versi ini menggunakan ikon komentar + counter, dan menghapus textarea.
+ */
 function createRecipeCard(recipe) {
+    const newCommentSummary = `
+        <div class="comment-summary">
+            <button class="comment-toggle-btn" title="Lihat Komentar">
+                <i class="fa-solid fa-comments"></i>
+                <span class="comment-count">${recipe.comment_count || 0}</span>
+            </button>
+        </div>
+    `;
+
     return `
     <article class="recipe-card" data-kategori="${recipe.category}" data-id="${recipe.id}">
       <div class="recipe-image">
@@ -49,18 +64,16 @@ function createRecipeCard(recipe) {
       <div class="card-content">
         <h3>${recipe.title}</h3>
         <p>${recipe.description}</p>
-        <div class="rating-actions">
-            <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i></button>
-            <span class="like-count">0</span>
-
-            <button class="dislike-btn"><i class="fa-solid fa-thumbs-down"></i></button>
-            <span class="dislike-count">0</span>
+        
+        <div class="card-actions">
+            <div class="rating-actions">
+                <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i></button>
+                <span class="like-count">0</span>
+                <button class="dislike-btn"><i class="fa-solid fa-thumbs-down"></i></button>
+                <span class="dislike-count">0</span>
+            </div>
+            ${newCommentSummary}
         </div>
-        <div class="comment-section">
-    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-    <button class="submit-comment">Kirim</button>
-    <div class="comments-list"></div>
-</div>
 
         <div class="recipe-meta">
           <span>${recipe.time}</span>
@@ -73,9 +86,11 @@ function createRecipeCard(recipe) {
   `;
 }
 
-
-// ✅ Function: Render recipes to DOM
+/**
+ * ✅ FUNGSI ORIGINAL: Menampilkan resep ke DOM
+ */
 function renderRecipes(recipesToDisplay) {
+    if (!recipeGrid) return; // Pastikan recipeGrid ada
     recipeGrid.innerHTML = "";
 
     if (!recipesToDisplay.length) {
@@ -84,22 +99,18 @@ function renderRecipes(recipesToDisplay) {
     }
 
     const fragment = document.createDocumentFragment();
-
     recipesToDisplay.forEach(recipe => {
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = createRecipeCard(recipe);
         const card = tempDiv.querySelector(".recipe-card");
-
         if (card) fragment.appendChild(card);
     });
-
     recipeGrid.appendChild(fragment);
-
-    // Add redirect behavior
-
 }
 
-// ✅ Function: Filter recipes
+/**
+ * ✅ FUNGSI ORIGINAL: Filter resep
+ */
 function handleFilter(category) {
     if (category === "all" || category === "semua") {
         renderRecipes(allRecipes);
@@ -111,69 +122,86 @@ function handleFilter(category) {
     }
 }
 
-// ✅ Fetch recipes and initialize
+/**
+ * ✅ FUNGSI ORIGINAL: Ambil data resep
+ */
 async function fetchRecipes() {
     if (loadingMessage) loadingMessage.textContent = "Memuat resep...";
-
     try {
         const res = await fetch("/api/recipes");
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         allRecipes = await res.json();
-
         renderRecipes(allRecipes);
     } catch (err) {
         console.error("Gagal memuat resep:", err);
-        recipeGrid.innerHTML = `<p class="error-message">Gagal memuat resep (${err.message})</p>`;
+        if (recipeGrid) {
+            recipeGrid.innerHTML = `<p class="error-message">Gagal memuat resep (${err.message})</p>`;
+        }
     } finally {
         if (loadingMessage) loadingMessage.remove();
     }
 }
 
-// ✅ Initialize when DOM is ready
+
+// 5. RECIPE EVENT LISTENERS
 document.addEventListener("DOMContentLoaded", () => {
-    fetchRecipes();
+    // Hanya jalankan ini jika kita di halaman utama (ada recipe-grid)
+    if (recipeGrid) {
+        fetchRecipes();
 
-    // Filter button logic
-    filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            filterButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            const category = btn.dataset.category;
-            handleFilter(category);
+        // Filter button logic
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const category = btn.dataset.category;
+                handleFilter(category);
+            });
         });
-    }); // <-- The filterButtons.forEach block ends here.
 
-    // ✅ Add redirect behavior using event delegation
-    // This should be OUTSIDE and AFTER the forEach block
-    recipeGrid.addEventListener("click", e => {
-        // Check if the clicked element or its parent is the button
-        const button = e.target.closest(".btn-view");
+        // ✅ LISTENER KLIK BARU (Event Delegation)
+        // Mengurus klik pada tombol "Lihat Resep" dan "Komentar"
+        recipeGrid.addEventListener("click", e => {
+            const card = e.target.closest(".recipe-card");
+            if (!card) return; // Klik di luar card
 
-        if (button) {
-            e.preventDefault(); // Stop the link from navigating to "#"
-
-            // Find the closest parent <article> tag
-            const card = button.closest(".recipe-card");
-
-            if (card) {
-                // Get the id from the card's data-id attribute
-                const id = card.dataset.id;
+            const id = card.dataset.id;
+            
+            // Target 1: Tombol "Lihat Resep"
+            const buttonView = e.target.closest(".btn-view");
+            if (buttonView) {
+                e.preventDefault(); 
                 window.location.href = `/recipe.html?id=${id}`;
+                return; // Hentikan eksekusi
             }
-        }
-    });
+
+            // Target 2: Tombol Komentar BARU
+            const buttonComment = e.target.closest(".comment-toggle-btn");
+            if (buttonComment) {
+                e.preventDefault();
+                // Redirect ke halaman resep DAN minta buka komentar
+                window.location.href = `/recipe.html?id=${id}&showComments=true`;
+                return; // Hentikan eksekusi
+            }
+        });
+    }
 });
-// === LIKE & DISLIKE FUNCTIONALITY ===
+
+
+// 6. LIKE & DISLIKE FUNCTIONALITY (Global Listener)
 document.addEventListener("click", function (e) {
+    // Cek apakah yang diklik adalah tombol like/dislike
+    const ratingActions = e.target.closest(".rating-actions");
+    if (!ratingActions) return; // Keluar jika bukan klik di area rating
+
     const likeBtn = e.target.closest(".like-btn");
     const dislikeBtn = e.target.closest(".dislike-btn");
 
     // LIKE BUTTON CLICKED
     if (likeBtn) {
-        const card = likeBtn.closest(".rating-actions");
-        const likeCount = card.querySelector(".like-count");
-        const dislikeBtnInside = card.querySelector(".dislike-btn");
-        const dislikeCount = card.querySelector(".dislike-count");
+        const likeCount = ratingActions.querySelector(".like-count");
+        const dislikeBtnInside = ratingActions.querySelector(".dislike-btn");
+        const dislikeCount = ratingActions.querySelector(".dislike-count");
 
         // Toggle like
         if (likeBtn.classList.contains("active-like")) {
@@ -193,10 +221,9 @@ document.addEventListener("click", function (e) {
 
     // DISLIKE BUTTON CLICKED
     if (dislikeBtn) {
-        const card = dislikeBtn.closest(".rating-actions");
-        const dislikeCount = card.querySelector(".dislike-count");
-        const likeBtnInside = card.querySelector(".like-btn");
-        const likeCount = card.querySelector(".like-count");
+        const dislikeCount = ratingActions.querySelector(".dislike-count");
+        const likeBtnInside = ratingActions.querySelector(".like-btn");
+        const likeCount = ratingActions.querySelector(".like-count");
 
         // Toggle dislike
         if (dislikeBtn.classList.contains("active-dislike")) {

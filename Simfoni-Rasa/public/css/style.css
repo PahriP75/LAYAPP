@@ -679,3 +679,249 @@ footer {
 #nav-user {
     display: none;
 }
+/* public/css/style.css */
+
+/* ... (SEMUA CSS LAMA KAMU TETAP DI ATAS) ... */
+
+
+/* ======================================= */
+/* 1. STYLE BARU: CARD DI HALAMAN UTAMA (index.html) */
+/* ======================================= */
+
+/* Wrapper untuk rating dan tombol komentar */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Tombol komentar di card utama */
+.comment-summary {
+    position: relative;
+}
+
+.comment-toggle-btn {
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    transition: background 0.2s ease;
+}
+
+.comment-toggle-btn:hover {
+    background: #e0e0e0;
+}
+
+.comment-toggle-btn i {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* ======================================= */
+/* 2. STYLE BARU: SIDEBAR KOMENTAR (recipe.html) */
+/* ======================================= */
+.main-content-wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative; /* Diperlukan untuk sidebar */
+}
+
+/* Overlay background */
+.comment-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.comment-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Sidebar Komentar */
+.comment-sidebar {
+    width: 400px; /* Lebar sidebar */
+    max-width: 90vw;
+    height: 100vh; /* Tinggi penuh */
+    position: fixed;
+    top: 0;
+    right: -400px; /* Mulai dari luar layar */
+    background: #ffffff;
+    z-index: 1100;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-sidebar.open {
+    right: 0; /* Muncul ke layar */
+}
+
+/* Header Sidebar */
+.comment-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+.close-comments-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+}
+.close-comments-btn:hover {
+    color: #000;
+}
+
+/* Kontainer list komentar */
+.comments-list-container {
+    flex-grow: 1; /* Mengisi ruang tersisa */
+    overflow-y: auto; /* Bisa di-scroll */
+    padding: 20px;
+}
+
+.comment-item {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-item-author {
+    font-weight: bold;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.comment-item-date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.comment-item-body {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    word-wrap: break-word; /* Agar teks panjang tidak merusak layout */
+}
+
+.comment-loading, .no-comments {
+    text-align: center;
+    color: #888;
+    padding-top: 30px;
+}
+
+/* Form kirim komentar di sidebar */
+.comment-form {
+    padding: 20px;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.comment-form p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    resize: vertical; /* Izinkan user resize tinggi */
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.comment-error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+}
+/* ======================================= */
+/* STYLE BARU: CARD DI HALAMAN UTAMA (index.html) */
+/* ======================================= */
+
+/* Wrapper untuk rating dan tombol komentar */
+.card-actions {
+    display: flex;
+    justify-content: space-between; /* Membuat like/dislike di kiri, komen di kanan */
+    align-items: center;
+    margin-bottom: 15px; /* Memberi jarak ke 'recipe-meta' */
+}
+
+/* Tombol komentar di card utama */
+.comment-summary {
+    position: relative;
+}
+
+.comment-toggle-btn {
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    transition: background 0.2s ease;
+}
+
+.comment-toggle-btn:hover {
+    background: #e0e0e0;
+}
+
+.comment-toggle-btn i {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Hapus margin bawah dari rating-actions agar sejajar */
+.rating-actions {
+    margin-bottom: 0; 
+}
