@@ -113,7 +113,7 @@ header nav a {
     position: relative;
     padding-bottom: 5px;
 }
-/* Efek hover pada link navigasi */
+/* Efek hover DAN active pada link navigasi */
 header nav a::after {
     content: '';
     position: absolute;
@@ -124,9 +124,18 @@ header nav a::after {
     background-color: var(--primary-color);
     transition: width 0.3s ease;
 }
-header nav a:hover::after {
+
+/* MODIFIKASI SCROLL SPY: Garis bawah muncul saat hover ATAU saat kelas active ada */
+header nav a:hover::after,
+header nav a.active::after {
     width: 100%;
 }
+
+/* Opsional: Mengubah warna teks saat aktif */
+header nav a.active {
+    color: var(--primary-color);
+}
+
 
 .header-actions { display: flex; align-items: center; gap: 20px; font-size: 1.1rem; }
 .header-actions .btn-login { text-decoration: none; font-weight: bold; color: var(--dark-color); }
@@ -140,7 +149,6 @@ header nav a:hover::after {
     justify-content: center;
     text-align: center;
     color: var(--light-color);
-    /* PERBAIKAN: Mengganti spasi dengan underscore untuk kompatibilitas path server */
     background: url('../images/Hero_Section.png') no-repeat center center/cover;
 }
 .hero-overlay {
@@ -377,6 +385,7 @@ footer {
     .footer-nav a, .social-icons a { margin: 0 10px; }
 }
 
+/* === AUTH PAGE STYLES === */
 .auth-page {
     /* Use the same background as the hero section */
     background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070') no-repeat center center/cover;
@@ -498,12 +507,13 @@ footer {
 .auth-switch a:hover {
     text-decoration: underline;
 }
+
 /* === LIKE & DISLIKE BUTTON === */
 .rating-actions {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 0; /* Reset margin agar sejajar card actions */
 }
 
 .rating-actions button {
@@ -533,38 +543,9 @@ footer {
     min-width: 20px;
     text-align: center;
 }
-.comment-section {
-    margin-top: 10px;
-}
-
-.comment-input {
-    width: 100%;
-    min-height: 60px;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    resize: vertical;
-}
-
-.submit-comment {
-    margin-top: 6px;
-    padding: 6px 12px;
-    background: #3b82f6;
-    border: none;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.comments-list p {
-    background: #f4f4f4;
-    padding: 6px;
-    margin-top: 6px;
-    border-radius: 6px;
-}
 
 /* ========================
-   HEADER / NAV STYLES
+   HEADER / NAV STYLES (Extended)
    ======================== */
 .header-nav {
     background: #fff;
@@ -601,7 +582,6 @@ footer {
 .header-nav nav a.btn {
     padding: 0.5rem 1rem;
 }
-
 
 /* ========================
    PROFILE PAGE STYLES
@@ -679,209 +659,10 @@ footer {
 #nav-user {
     display: none;
 }
-/* public/css/style.css */
-
-/* ... (SEMUA CSS LAMA KAMU TETAP DI ATAS) ... */
 
 
 /* ======================================= */
 /* 1. STYLE BARU: CARD DI HALAMAN UTAMA (index.html) */
-/* ======================================= */
-
-/* Wrapper untuk rating dan tombol komentar */
-.card-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-/* Tombol komentar di card utama */
-.comment-summary {
-    position: relative;
-}
-
-.comment-toggle-btn {
-    background: #f0f0f0;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #555;
-    transition: background 0.2s ease;
-}
-
-.comment-toggle-btn:hover {
-    background: #e0e0e0;
-}
-
-.comment-toggle-btn i {
-    font-size: 1rem;
-    color: #333;
-}
-
-/* ======================================= */
-/* 2. STYLE BARU: SIDEBAR KOMENTAR (recipe.html) */
-/* ======================================= */
-.main-content-wrapper {
-    display: flex;
-    justify-content: center;
-    position: relative; /* Diperlukan untuk sidebar */
-}
-
-/* Overlay background */
-.comment-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1050;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.comment-overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Sidebar Komentar */
-.comment-sidebar {
-    width: 400px; /* Lebar sidebar */
-    max-width: 90vw;
-    height: 100vh; /* Tinggi penuh */
-    position: fixed;
-    top: 0;
-    right: -400px; /* Mulai dari luar layar */
-    background: #ffffff;
-    z-index: 1100;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.15);
-    transition: right 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-}
-
-.comment-sidebar.open {
-    right: 0; /* Muncul ke layar */
-}
-
-/* Header Sidebar */
-.comment-sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.comment-sidebar-header h3 {
-    margin: 0;
-    font-family: var(--font-heading);
-    color: var(--dark-color);
-}
-
-.close-comments-btn {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    font-weight: 300;
-    color: #888;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 5px;
-}
-.close-comments-btn:hover {
-    color: #000;
-}
-
-/* Kontainer list komentar */
-.comments-list-container {
-    flex-grow: 1; /* Mengisi ruang tersisa */
-    overflow-y: auto; /* Bisa di-scroll */
-    padding: 20px;
-}
-
-.comment-item {
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.comment-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.comment-item-author {
-    font-weight: bold;
-    color: var(--dark-color);
-    font-size: 0.95rem;
-}
-
-.comment-item-date {
-    font-size: 0.8rem;
-    color: #999;
-}
-
-.comment-item-body {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    line-height: 1.5;
-    word-wrap: break-word; /* Agar teks panjang tidak merusak layout */
-}
-
-.comment-loading, .no-comments {
-    text-align: center;
-    color: #888;
-    padding-top: 30px;
-}
-
-/* Form kirim komentar di sidebar */
-.comment-form {
-    padding: 20px;
-    background: #f9f9f9;
-    border-top: 1px solid #eee;
-}
-
-.comment-form p {
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.comment-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: var(--font-body);
-    resize: vertical; /* Izinkan user resize tinggi */
-}
-
-.comment-form button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-}
-
-.comment-error-message {
-    color: #e74c3c;
-    font-size: 0.9rem;
-    margin-top: 10px;
-    text-align: center;
-}
-/* ======================================= */
-/* STYLE BARU: CARD DI HALAMAN UTAMA (index.html) */
 /* ======================================= */
 
 /* Wrapper untuk rating dan tombol komentar */
@@ -921,7 +702,212 @@ footer {
     color: #333;
 }
 
-/* Hapus margin bawah dari rating-actions agar sejajar */
-.rating-actions {
-    margin-bottom: 0; 
+
+/* ======================================= */
+/* 2. STYLE BARU: SIDEBAR KOMENTAR (ANIMASI HALUS) */
+/* ======================================= */
+
+/* --- Overlay dengan Efek Blur (Glassmorphism) --- */
+.comment-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Background lebih transparan */
+    backdrop-filter: blur(0px); /* Mulai tanpa blur */
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.comment-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(5px); /* Blur saat aktif */
+}
+
+/* --- Sidebar Utama --- */
+.comment-sidebar {
+    width: 400px;
+    max-width: 90vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -420px; /* Sembunyi lebih jauh agar bayangan tidak terlihat */
+    background: #ffffff;
+    z-index: 1100;
+    /* Shadow lebih lembut */
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    /* Transisi 'Spring' yang halus (bukan linear) */
+    transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.comment-sidebar.open {
+    right: 0;
+}
+
+/* --- Header Sidebar --- */
+.comment-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+    
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.comment-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+.close-comments-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+.close-comments-btn:hover {
+    color: var(--dark-color);
+    transform: rotate(90deg); /* Tombol putar saat di-hover */
+}
+
+/* --- Kontainer List Komentar --- */
+.comments-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 25px;
+    
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s; /* Delay 0.1 detik */
+}
+
+/* Item Komentar */
+.comment-item {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f9f9f9;
+    animation: fadeIn 0.5s ease; /* Animasi saat komentar baru ditambah */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.comment-item-author {
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.comment-item-date {
+    font-size: 0.75rem;
+    color: #bbb;
+}
+
+.comment-item-body {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Loading & Empty State */
+.comment-loading, .no-comments {
+    text-align: center;
+    color: #999;
+    padding-top: 40px;
+    font-style: italic;
+}
+
+/* --- Form Kirim Komentar --- */
+.comment-form {
+    padding: 25px;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.02);
+    
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* Delay 0.2 detik */
+}
+
+.comment-form p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px; /* Lebih bulat */
+    font-family: var(--font-body);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+.comment-error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ======================================= */
+/* TRIGGER ANIMASI (Saat Kelas .open Aktif) */
+/* ======================================= */
+.comment-sidebar.open .comment-sidebar-header,
+.comment-sidebar.open .comments-list-container,
+.comment-sidebar.open .comment-form {
+    opacity: 1;
+    transform: translateY(0);
 }
