@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengiris Seperti Chef Profesional</title>
+    <link rel="stylesheet" href="style.css"> 
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* SKEMA WARNA DIBATASI: #310F10, #46462A, #F9F6F0 */
+        body { 
+            font-family: 'Lato', sans-serif; 
+            line-height: 1.6; 
+            max-width: 850px; 
+            margin: 0 auto; 
+            padding: 30px; 
+            background-color: #F9F6F0; 
+            color: #310F10; 
+        }
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            padding-bottom: 10px;
+        }
+        h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5em; 
+            color: #310F10; 
+            margin-bottom: 5px; 
+        }
+        .hero-image { 
+            max-width: 80%; 
+            height: auto; 
+            margin: 0 auto 30px auto; 
+            display: block; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(49, 15, 16, 0.2); 
+        }
+        .section-title { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.6em; 
+            color: #46462A; 
+            border-bottom: 2px solid #46462A; 
+            padding-bottom: 8px; 
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        .tips-list { 
+            padding-left: 20px; 
+            list-style-position: outside; 
+        }
+        .tips-list li {
+            background-color: #ffffff; 
+            border-left: 4px solid #46462A; 
+            margin-bottom: 12px;
+            padding: 10px 15px 10px 25px; 
+            box-shadow: 0 1px 3px rgba(49, 15, 16, 0.1);
+            font-weight: 500;
+            position: relative; 
+        }
+        
+        .callout-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .back-link a {
+            color: #46462A; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        .sub-header {
+            font-family: 'Playfair Display', serif; 
+            color: #310F10;
+            margin-top: 25px;
+            border-bottom: 1px solid #46462A;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mengiris Seperti Chef Profesional</h1>
+        <p style="font-size: 1.1em; color: #46462A;">Teknik mengiris bahan dengan ukuran seragam dan gerakan cepat agar memotong, tampilan rapi, serta rasa biasa menjadi hidangan lezat lebih maksimal.</p>
+    </header>
+
+    <main>
+        <img src="images/iris.jpg" alt="Orang sedang mengiris sayuran" class="hero-image">
+
+        <h2 class="section-title">Tips & Trick Praktis</h2>
+        
+        <h3 class="sub-header">Dasar-dasar Persiapan dan Genggaman</h3>
+        <ol class="tips-list">
+            <li>Siapkan pisau tajam.</li>
+            <li>Stabilkan talenan dengan kain basah.</li>
+            <li>Pastikan kualitas dan tekstur bahan.</li>
+            <li>Pegang pisau dengan grip yang mantap. (Teknik 'Pinch Grip' disarankan untuk kontrol penuh)</li>
+        </ol>
+
+        <h3 class="sub-header">Menguasai Teknik Tangan Penahan</h3>
+        
+        
+        
+        <ol class="tips-list" start="5">
+            <li>Bentuk "Claw Grip" pada tangan penahan. (Jari ditekuk ke dalam, melindungi ujung jari)</li>
+            <li>Jadikan buku jari sebagai titik pivot. (Pisau selalu bersentuhan dengan buku jari Anda)</li>
+            <li>Gerakkan pisau dengan ayunan maju-turun-mundur.</li>
+        </ol>
+        
+        <h3 class="sub-header">Ritme dan Konsistensi</h3>
+        <ol class="tips-list" start="8">
+            <li>Geser bahan sedikit demi sedikit dengan jari claw.</li>
+            <li>Jaga ukuran irisan konsisten.</li>
+            <li>Pindahkan irisan ke wadah.</li>
+            <li>Ulangi ritme hingga terbiasa.</li>
+        </ol>
+        
+        <p class="back-link" style="margin-top: 40px; text-align: center;"><a href="index.html">&leftarrow; Kembali ke Simfoni Rasa</a></p>
+    </main>
+</body>
+</html>
