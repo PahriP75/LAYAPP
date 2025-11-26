@@ -63,7 +63,7 @@ const requestHandler = (req, res) => {
             req.on('end', () => {
                 try {
                     const newRecipe = JSON.parse(body);
-                    
+
                     // Basic validation
                     if (!newRecipe.title || !newRecipe.ingredients || !newRecipe.steps) {
                         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -112,6 +112,49 @@ const requestHandler = (req, res) => {
                     res.writeHead(400, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ error: 'Invalid JSON' }));
                 }
+            });
+            return;
+        } else if (req.method === 'DELETE') {
+            const id = url.searchParams.get('id');
+            if (!id) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: 'Missing recipe ID' }));
+            }
+
+            fs.readFile(filePath, (err, data) => {
+                if (err) {
+                    console.error('Error reading recipes for delete:', err);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'Internal Server Error' }));
+                }
+
+                let recipes = [];
+                try {
+                    recipes = JSON.parse(data);
+                } catch (parseErr) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'Database error' }));
+                }
+
+                const initialLength = recipes.length;
+                recipes = recipes.filter(r => r.id != id);
+
+                if (recipes.length === initialLength) {
+                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'Recipe not found' }));
+                }
+
+                fs.writeFile(filePath, JSON.stringify(recipes, null, 4), (writeErr) => {
+                    if (writeErr) {
+                        console.error('Error deleting recipe:', writeErr);
+                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                        return res.end(JSON.stringify({ error: 'Could not delete recipe' }));
+                    }
+
+                    console.log(`Recipe deleted: ID ${id}`);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Recipe deleted successfully' }));
+                });
             });
             return;
         }

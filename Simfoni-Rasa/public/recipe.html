@@ -9,7 +9,7 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
-    
+
     <style>
         /* Variabel warna */
         :root {
@@ -53,14 +53,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Warna hitam transparan */
-            z-index: 1040; /* Di bawah sidebar, di atas konten */
+            background: rgba(0, 0, 0, 0.5);
+            /* Warna hitam transparan */
+            z-index: 1040;
+            /* Di bawah sidebar, di atas konten */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
-            backdrop-filter: blur(3px); /* Efek blur keren */
+            backdrop-filter: blur(3px);
+            /* Efek blur keren */
         }
-        
+
         .comment-overlay.open {
             opacity: 1;
             visibility: visible;
@@ -70,12 +73,16 @@
         .comment-sidebar {
             position: fixed;
             top: 0;
-            right: -450px; /* Sembunyi di luar layar kanan */
+            right: -450px;
+            /* Sembunyi di luar layar kanan */
             width: 400px;
-            max-width: 85vw; /* Agar aman di HP */
-            height: 100vh; /* Tinggi penuh */
+            max-width: 85vw;
+            /* Agar aman di HP */
+            height: 100vh;
+            /* Tinggi penuh */
             background: #ffffff;
-            z-index: 1050; /* Paling atas */
+            z-index: 1050;
+            /* Paling atas */
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
@@ -98,16 +105,24 @@
             background: #fff;
         }
 
-        .comment-sidebar-header h3 { margin: 0; font-family: var(--font-heading); }
+        .comment-sidebar-header h3 {
+            margin: 0;
+            font-family: var(--font-heading);
+        }
 
         .close-comments-btn {
-            background: none; border: none; font-size: 1.8rem;
-            color: #888; cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #888;
+            cursor: pointer;
             transition: transform 0.3s ease, color 0.3s;
         }
-        .close-comments-btn:hover { 
-            color: var(--dark-color); 
-            transform: rotate(90deg); /* Efek putar saat hover */
+
+        .close-comments-btn:hover {
+            color: var(--dark-color);
+            transform: rotate(90deg);
+            /* Efek putar saat hover */
         }
 
         /* List komentar */
@@ -120,7 +135,8 @@
 
         /* Animasi item komentar muncul */
         .comment-item {
-            padding: 15px; margin-bottom: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
             background: #fff;
             border-radius: 12px;
             border: 1px solid #eee;
@@ -128,101 +144,218 @@
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .comment-item-header {
-            display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
+
         .comment-item-author {
-            font-weight: bold; color: var(--dark-color); font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--dark-color);
+            font-size: 0.9rem;
         }
-        .comment-item-date { font-size: 0.75rem; color: #aaa; }
+
+        .comment-item-date {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
         .comment-item-body {
-            font-size: 0.9rem; color: #555; line-height: 1.5;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
         }
-        .comment-loading, .no-comments { 
-            text-align: center; color: #888; padding-top: 30px; 
+
+        .comment-loading,
+        .no-comments {
+            text-align: center;
+            color: #888;
+            padding-top: 30px;
         }
 
         /* Form kirim komentar */
         .comment-form {
-            padding: 20px; background: #fff;
+            padding: 20px;
+            background: #fff;
             border-top: 1px solid #eee;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.03);
         }
+
         .comment-form p {
-            font-weight: bold; margin-bottom: 10px; color: #333; font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 0.9rem;
         }
+
         .comment-form textarea {
-            width: 100%; padding: 12px; border: 1px solid #ddd;
-            border-radius: 10px; font-family: 'Poppins', sans-serif;
-            resize: none; height: 80px; box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            resize: none;
+            height: 80px;
+            box-sizing: border-box;
             transition: border-color 0.3s;
         }
-        .comment-form textarea:focus { outline: none; border-color: var(--secondary-color); }
-        .comment-form button {
-            width: 100%; margin-top: 10px; padding: 12px;
-            border-radius: 25px; font-weight: bold;
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
         }
+
+        .comment-form button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
         .comment-error-message {
-            color: #e74c3c; font-size: 0.85rem;
-            margin-top: 8px; text-align: center;
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
         }
 
         /* Style Bawaan Resep (Tidak berubah banyak) */
-        .recipe-header img { width: 100%; height: 400px; object-fit: cover; }
-        .recipe-content { padding: 40px; }
-        .recipe-meta { font-size: 14px; color: #888; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
-        .recipe-title { font-size: 32px; font-weight: 700; margin-bottom: 15px; color: var(--dark-color); }
-        .recipe-description { color: #555; line-height: 1.8; margin-bottom: 30px; }
-        
+        .recipe-header img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 40px;
+        }
+
+        .recipe-meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .recipe-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .recipe-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
         .recipe-info {
-            display: flex; justify-content: space-around;
-            background-color: #fdfdfd; border: 1px solid #eee; border-radius: 12px;
-            padding: 20px 0; margin-bottom: 30px; font-size: 14px;
+            display: flex;
+            justify-content: space-around;
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
-        .recipe-info div strong { font-size: 1.1rem; color: var(--primary-color); }
-        
+
+        .recipe-info div strong {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
         .section-title {
-            font-size: 22px; margin: 35px 0 15px;
-            font-weight: 700; color: var(--dark-color); border-left: 4px solid var(--secondary-color); padding-left: 15px;
+            font-size: 22px;
+            margin: 35px 0 15px;
+            font-weight: 700;
+            color: var(--dark-color);
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
         }
-        ul.ingredients li, ol.steps li {
-            margin-bottom: 10px; color: #444; line-height: 1.6;
+
+        ul.ingredients li,
+        ol.steps li {
+            margin-bottom: 10px;
+            color: #444;
+            line-height: 1.6;
         }
-        
+
         .video-container {
-            position: relative; overflow: hidden; width: 100%;
-            padding-top: 56.25%; margin-bottom: 25px; border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%;
+            margin-bottom: 25px;
+            border-radius: 12px;
         }
+
         .video-container iframe {
-            position: absolute; top: 0; left: 0; bottom: 0;
-            right: 0; width: 100%; height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
         }
-        
+
         .page-actions {
-            display: flex; justify-content: space-between;
-            align-items: center; padding: 20px 40px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
             background: #fff;
         }
+
         #show-comments-btn {
-            display: flex; align-items: center; gap: 8px;
-            padding: 10px 20px; border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 30px;
             transition: background 0.3s;
         }
-        #show-comments-btn:hover { background: #f0f0f0; }
-        
-        .back-btn {
-            background: none; border: 1px solid #ddd;
-            color: #555; border-radius: 50%; width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s ease;
+
+        #show-comments-btn:hover {
+            background: #f0f0f0;
         }
+
+        .back-btn {
+            background: none;
+            border: 1px solid #ddd;
+            color: #555;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
         .back-btn:hover {
-            background-color: var(--dark-color); color: #fff; border-color: var(--dark-color);
+            background-color: var(--dark-color);
+            color: #fff;
+            border-color: var(--dark-color);
         }
     </style>
 </head>
@@ -231,16 +364,17 @@
 
     <div class="main-content-wrapper">
 
-        <div class="recipe-page">
+        <div class="recipe-page" style="position: relative;">
+            <a href="javascript:history.back()" class="btn-back-top"
+                style="top: 20px; left: 20px; z-index: 10; background: white; color: var(--primary-color);">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
 
             <div class="recipe-header">
                 <img id="recipe-image" alt="Recipe image" src="https://placehold.co/800x400?text=Loading...">
             </div>
 
-            <div class="page-actions">
-                <button class="back-btn" onclick="window.location.href='index.html'" title="Kembali ke Beranda">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
+            <div class="page-actions" style="justify-content: flex-end;">
                 <button id="show-comments-btn" class="btn btn-outline">
                     <i class="fa-solid fa-comments"></i> <span id="comment-btn-text">Lihat Komentar</span>
                 </button>
@@ -271,8 +405,8 @@
                 <h2 class="section-title">Langkah-langkah</h2>
                 <ol class="steps" id="steps-list"></ol>
             </div>
-        </div> 
-        
+        </div>
+
         <div id="comment-overlay" class="comment-overlay"></div>
 
         <div id="comment-sidebar" class="comment-sidebar">
@@ -293,7 +427,7 @@
             </form>
         </div>
 
-    </div> 
+    </div>
 
     <script type="module" src="js/client.js"></script>
     <script type="module" src="js/comment.js"></script>

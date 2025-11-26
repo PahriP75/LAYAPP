@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             difficulty: formData.get('difficulty'),
             ingredients: ingredients,
             steps: steps,
-            calories: formData.get('calories')
+            calories: formData.get('calories'),
+            author: user.email
         };
 
         try {
