@@ -37,21 +37,84 @@ const requestHandler = (req, res) => {
     console.log(`Request received: ${req.method} ${pathname}`);
 
     // --- 1. Dynamic API Route Handling ---
-    if (pathname === '/api/recipes' && req.method === 'GET') {
+    // --- 1. Dynamic API Route Handling ---
+    if (pathname === '/api/recipes') {
         const filePath = path.join(DATA_DIR, 'recipes.json');
 
-        fs.readFile(filePath, (err, data) => {
-            if (err) {
-                console.error('Error reading recipes data file:', err);
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'Internal Server Error: Could not load data.' }));
-            }
+        if (req.method === 'GET') {
+            fs.readFile(filePath, (err, data) => {
+                if (err) {
+                    console.error('Error reading recipes data file:', err);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'Internal Server Error: Could not load data.' }));
+                }
 
-            // Success: Serve the JSON data
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(data);
-        });
-        return;
+                // Success: Serve the JSON data
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(data);
+            });
+            return;
+        } else if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => {
+                body += chunk.toString();
+            });
+
+            req.on('end', () => {
+                try {
+                    const newRecipe = JSON.parse(body);
+                    
+                    // Basic validation
+                    if (!newRecipe.title || !newRecipe.ingredients || !newRecipe.steps) {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        return res.end(JSON.stringify({ error: 'Missing required fields' }));
+                    }
+
+                    fs.readFile(filePath, (err, data) => {
+                        if (err) {
+                            console.error('Error reading recipes for update:', err);
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            return res.end(JSON.stringify({ error: 'Internal Server Error' }));
+                        }
+
+                        let recipes = [];
+                        try {
+                            recipes = JSON.parse(data);
+                        } catch (parseErr) {
+                            console.error('Error parsing existing recipes:', parseErr);
+                            // If file is corrupt, we might want to start fresh or error out. 
+                            // For now, let's assume we start with an empty array if parse fails but file exists? 
+                            // Or better, error out to be safe.
+                            res.writeHead(500, { 'Content-Type': 'application/json' });
+                            return res.end(JSON.stringify({ error: 'Database error' }));
+                        }
+
+                        // Generate a new ID (simple max ID + 1)
+                        const maxId = recipes.reduce((max, r) => (r.id > max ? r.id : max), 0);
+                        newRecipe.id = maxId + 1;
+
+                        recipes.push(newRecipe);
+
+                        fs.writeFile(filePath, JSON.stringify(recipes, null, 4), (writeErr) => {
+                            if (writeErr) {
+                                console.error('Error writing new recipe:', writeErr);
+                                res.writeHead(500, { 'Content-Type': 'application/json' });
+                                return res.end(JSON.stringify({ error: 'Could not save recipe' }));
+                            }
+
+                            console.log(`New recipe added: ${newRecipe.title} (ID: ${newRecipe.id})`);
+                            res.writeHead(201, { 'Content-Type': 'application/json' });
+                            res.end(JSON.stringify({ message: 'Recipe added successfully', recipe: newRecipe }));
+                        });
+                    });
+                } catch (e) {
+                    console.error('Invalid JSON in request body:', e);
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Invalid JSON' }));
+                }
+            });
+            return;
+        }
     }
 
     // --- 2. Static File Serving ---

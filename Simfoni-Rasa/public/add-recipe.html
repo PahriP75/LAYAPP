@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Resep - Simfoni Rasa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .dynamic-list-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .dynamic-list-item input {
+            flex-grow: 1;
+        }
+        .remove-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        .form-actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="container">
+            <a href="index.html" class="logo">Simfoni Rasa</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="profile.html" class="btn btn-primary">Profil</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="profile-card" style="max-width: 800px;">
+            <h2>Tambah Resep Baru</h2>
+            <form id="add-recipe-form">
+                <div class="form-group">
+                    <label for="title">Judul Resep</label>
+                    <input type="text" id="title" name="title" required placeholder="Contoh: Nasi Goreng Spesial">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Deskripsi Singkat</label>
+                    <textarea id="description" name="description" rows="3" required placeholder="Deskripsi singkat tentang resep Anda..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">URL Gambar</label>
+                    <input type="url" id="image" name="image" placeholder="https://example.com/gambar-resep.jpg">
+                    <small>Masukkan URL gambar yang valid.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Kategori</label>
+                    <select id="category" name="category">
+                        <option value="Pagi">Pagi</option>
+                        <option value="Siang">Siang</option>
+                        <option value="Malam">Malam</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Minuman">Minuman</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Waktu Memasak</label>
+                    <input type="text" id="time" name="time" placeholder="Contoh: 30 MENIT">
+                </div>
+
+                <div class="form-group">
+                    <label for="servings">Porsi</label>
+                    <input type="text" id="servings" name="servings" placeholder="Contoh: 2 PORSI">
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Tingkat Kesulitan</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="SANGAT MUDAH">Sangat Mudah</option>
+                        <option value="MUDAH">Mudah</option>
+                        <option value="SEDANG">Sedang</option>
+                        <option value="SULIT">Sulit</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Bahan-bahan</label>
+                    <div id="ingredients-list">
+                        <div class="dynamic-list-item">
+                            <input type="text" name="ingredients[]" required placeholder="Contoh: 2 butir telur">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-ingredient-btn"><i class="fa-solid fa-plus"></i> Tambah Bahan</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Langkah-langkah</label>
+                    <div id="steps-list">
+                        <div class="dynamic-list-item">
+                            <input type="text" name="steps[]" required placeholder="Contoh: Panaskan minyak...">
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-step-btn"><i class="fa-solid fa-plus"></i> Tambah Langkah</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="calories">Kalori (Opsional)</label>
+                    <input type="text" id="calories" name="calories" placeholder="Contoh: 400 kcal">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Simpan Resep</button>
+                    <a href="profile.html" class="btn btn-danger" style="text-decoration: none; text-align: center;">Batal</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script type="module" src="js/add-recipe.js"></script>
+
+</body>
+</html>

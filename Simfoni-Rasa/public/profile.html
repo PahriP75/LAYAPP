@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 
     <header class="header-nav">
@@ -31,14 +33,20 @@
                     <span id="user-email">Memuat...</span>
                 </p>
             </div>
-            
-            <button id="logout-button" class="btn btn-danger">
-                <i class="fa-solid fa-right-from-bracket"></i> Logout
-            </button>
+
+            <div class="profile-actions" style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <a href="add-recipe.html" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Tambah Resep
+                </a>
+                <button id="logout-button" class="btn btn-danger">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
         </div>
     </main>
 
     <script type="module" src="js/profile.js"></script>
 
 </body>
+
 </html>
