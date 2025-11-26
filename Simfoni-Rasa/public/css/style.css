@@ -1611,6 +1611,7 @@ footer {
 .comment-item-header {
     display: flex;
     justify-content: space-between;
+
     align-items: center;
     margin-bottom: 6px;
 }
@@ -1741,12 +1742,295 @@ footer {
     transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     background-color: #8a4524;
-    /* Slightly darker shade of secondary color */
-    color: var(--light-color);
 }
 
-.btn-fab:active {
-    transform: scale(0.95);
+/* ======================================= */
+/* 6. ADD RECIPE FORM STYLES */
+/* ======================================= */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.dynamic-list-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dynamic-list-item input {
+    flex-grow: 1;
+}
+
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #e60000;
+}
+
+}
+
+/* Loading & Empty State */
+.comment-loading,
+.no-comments {
+    text-align: center;
+    color: #999;
+    padding-top: 40px;
+    font-style: italic;
+}
+
+/* --- Form Kirim Komentar --- */
+.comment-form {
+    padding: 25px;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.02);
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    /* Delay 0.2 detik */
+}
+
+.comment-form p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    /* Lebih bulat */
+    font-family: var(--font-body);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+.comment-error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ======================================= */
+/* TRIGGER ANIMASI (Saat Kelas .open Aktif) */
+/* ======================================= */
+.comment-sidebar.open .comment-sidebar-header,
+.comment-sidebar.open .comments-list-container,
+.comment-sidebar.open .comment-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ======================================= */
+/* 3. FLOATING ACTION BUTTON (FAB) */
+/* ======================================= */
+.btn-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background-color: #8a4524;
+}
+
+/* ======================================= */
+/* 6. ADD RECIPE FORM STYLES */
+/* ======================================= */
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.dynamic-list-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.dynamic-list-item input {
+    flex-grow: 1;
+}
+
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #e60000;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.form-actions .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
 }
 
 /* ======================================= */
@@ -1765,6 +2049,16 @@ footer {
     align-items: center;
     font-size: 1.2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-logout-top:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
 }
 
 /* ======================================= */
