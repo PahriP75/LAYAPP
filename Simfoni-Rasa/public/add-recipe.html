@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,26 +13,33 @@
         .form-group {
             margin-bottom: 1.5rem;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
-        .form-group input, .form-group textarea, .form-group select {
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
         }
+
         .dynamic-list-item {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
+
         .dynamic-list-item input {
             flex-grow: 1;
         }
+
         .remove-btn {
             background-color: #ff4d4d;
             color: white;
@@ -40,6 +48,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
+
         .add-btn {
             background-color: #4CAF50;
             color: white;
@@ -49,6 +58,7 @@
             border-radius: 4px;
             margin-top: 5px;
         }
+
         .form-actions {
             margin-top: 2rem;
             display: flex;
@@ -56,6 +66,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header class="header-nav">
@@ -70,7 +81,12 @@
 
     <main class="container">
         <div class="profile-card" style="max-width: 800px;">
-            <h2>Tambah Resep Baru</h2>
+            <div style="position: relative;">
+                <a href="index.html" class="btn-back-top">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <h2>Tambah Resep Baru</h2>
+            </div>
             <form id="add-recipe-form">
                 <div class="form-group">
                     <label for="title">Judul Resep</label>
@@ -79,7 +95,8 @@
 
                 <div class="form-group">
                     <label for="description">Deskripsi Singkat</label>
-                    <textarea id="description" name="description" rows="3" required placeholder="Deskripsi singkat tentang resep Anda..."></textarea>
+                    <textarea id="description" name="description" rows="3" required
+                        placeholder="Deskripsi singkat tentang resep Anda..."></textarea>
                 </div>
 
                 <div class="form-group">
@@ -126,7 +143,8 @@
                             <input type="text" name="ingredients[]" required placeholder="Contoh: 2 butir telur">
                         </div>
                     </div>
-                    <button type="button" class="add-btn" id="add-ingredient-btn"><i class="fa-solid fa-plus"></i> Tambah Bahan</button>
+                    <button type="button" class="add-btn" id="add-ingredient-btn"><i class="fa-solid fa-plus"></i>
+                        Tambah Bahan</button>
                 </div>
 
                 <div class="form-group">
@@ -136,7 +154,8 @@
                             <input type="text" name="steps[]" required placeholder="Contoh: Panaskan minyak...">
                         </div>
                     </div>
-                    <button type="button" class="add-btn" id="add-step-btn"><i class="fa-solid fa-plus"></i> Tambah Langkah</button>
+                    <button type="button" class="add-btn" id="add-step-btn"><i class="fa-solid fa-plus"></i> Tambah
+                        Langkah</button>
                 </div>
 
                 <div class="form-group">
@@ -146,7 +165,6 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Simpan Resep</button>
-                    <a href="profile.html" class="btn btn-danger" style="text-decoration: none; text-align: center;">Batal</a>
                 </div>
             </form>
         </div>
@@ -155,4 +173,5 @@
     <script type="module" src="js/add-recipe.js"></script>
 
 </body>
+
 </html>

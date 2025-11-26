@@ -25,7 +25,15 @@
 
     <main class="container">
         <div class="profile-card">
-            <h2>Profil Saya</h2>
+            <div style="position: relative;">
+                <a href="index.html" class="btn-back-top">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <button id="logout-button" class="btn btn-danger btn-logout-top">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+                <h2>Profil Saya</h2>
+            </div>
             <div class="profile-info">
                 <i class="fa-solid fa-envelope"></i>
                 <p>
@@ -35,12 +43,12 @@
             </div>
 
             <div class="profile-actions" style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                <a href="add-recipe.html" class="btn btn-primary">
-                    <i class="fa-solid fa-plus"></i> Tambah Resep
+                <a href="my-recipes.html" class="btn btn-primary">
+                    <i class="fa-solid fa-book-open"></i> Resep Saya
                 </a>
-                <button id="logout-button" class="btn btn-danger">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </button>
+                <a href="favorite-recipes.html" class="btn btn-secondary">
+                    <i class="fa-solid fa-heart"></i> Favorite Saya
+                </a>
             </div>
         </div>
     </main>

@@ -1,7 +1,8 @@
 /* === GENERAL STYLES & VARIABLES === */
 :root {
     --primary-color: #46462A;
-    --secondary-color: #A0522D; /* Warna Sesuai Gambar */
+    --secondary-color: #A0522D;
+    /* Warna Sesuai Gambar */
     --dark-color: #310F10;
     --light-color: #FFFFFF;
     --bg-light: #F9F6F1;
@@ -35,7 +36,9 @@ body {
     padding: 0 20px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: var(--font-heading);
     color: var(--dark-color);
 }
@@ -69,15 +72,48 @@ h2 {
     transition: all 0.3s ease;
     border: none;
 }
-.btn-primary { background-color: var(--dark-color); color: var(--light-color); }
-.btn-primary:hover { background-color: #555; }
+
+.btn-primary {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+.btn-primary:hover {
+    background-color: #555;
+}
+
 /* Perbaikan: Mengubah warna teks agar kontras */
-.btn-secondary { background-color: var(--secondary-color); color: var(--light-color); }
-.btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-.btn-outline { border: 1px solid var(--dark-color); color: var(--dark-color); background-color: transparent; }
-.btn-outline:hover { background-color: var(--dark-color); color: var(--light-color); }
-.btn-dark { background-color: var(--dark-color); color: var(--light-color); border: none; cursor: pointer;}
-.btn-dark:hover { background-color: #000; }
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+    border: 1px solid var(--dark-color);
+    color: var(--dark-color);
+    background-color: transparent;
+}
+
+.btn-outline:hover {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+.btn-dark {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-dark:hover {
+    background-color: #000;
+}
 
 
 /* === HEADER === */
@@ -85,27 +121,32 @@ header {
     background: var(--bg-light);
     padding: 20px 0;
     border-bottom: 1px solid #ddd;
-    position: sticky; /* Membuat header tetap terlihat saat scroll */
+    position: sticky;
+    /* Membuat header tetap terlihat saat scroll */
     top: 0;
     z-index: 1000;
     width: 100%;
 }
+
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .logo {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     color: var(--dark-color);
     text-decoration: none;
 }
+
 header nav ul {
     list-style: none;
     display: flex;
     gap: 30px;
 }
+
 header nav a {
     text-decoration: none;
     color: var(--text-color);
@@ -113,6 +154,7 @@ header nav a {
     position: relative;
     padding-bottom: 5px;
 }
+
 /* Efek hover DAN active pada link navigasi */
 header nav a::after {
     content: '';
@@ -137,13 +179,24 @@ header nav a.active {
 }
 
 
-.header-actions { display: flex; align-items: center; gap: 20px; font-size: 1.1rem; }
-.header-actions .btn-login { text-decoration: none; font-weight: bold; color: var(--dark-color); }
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.1rem;
+}
+
+.header-actions .btn-login {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--dark-color);
+}
 
 /* === HERO SECTION === */
 .hero {
     position: relative;
-    height: 90vh; /* Sedikit lebih tinggi */
+    height: 90vh;
+    /* Sedikit lebih tinggi */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,17 +204,26 @@ header nav a.active {
     color: var(--light-color);
     background: url('../images/Hero_Section.png') no-repeat center center/cover;
 }
+
 .hero-overlay {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
-.hero-content { position: relative; z-index: 2; }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
 .hero h1 {
     font-size: 4rem;
     color: var(--light-color);
 }
+
 .hero p {
     font-size: 1.1rem;
     max-width: 600px;
@@ -170,7 +232,10 @@ header nav a.active {
 
 
 /* === RECIPES SECTION === */
-.recipes { padding: 80px 20px; }
+.recipes {
+    padding: 80px 20px;
+}
+
 .filters {
     display: flex;
     justify-content: center;
@@ -178,6 +243,7 @@ header nav a.active {
     margin-bottom: 40px;
     flex-wrap: wrap;
 }
+
 .filters button {
     background: transparent;
     border: 1px solid #ccc;
@@ -187,40 +253,57 @@ header nav a.active {
     font-weight: bold;
     transition: all 0.3s ease;
 }
+
 .filters button:hover {
     background-color: #e0e0e0;
 }
+
 .filters button.active {
     background-color: #46462A;
     color: var(--light-color);
     border-color: #46462A;
 }
+
 .recipe-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
+
 .recipe-card {
     background: var(--light-color);
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     /* Penambahan transisi untuk filter */
     transition: transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
 }
+
 .recipe-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
+
 .recipe-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
-.card-content { padding: 20px; }
-.card-content h3 { font-size: 1.4rem; }
-.card-content p { font-size: 0.9rem; margin: 10px 0; }
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h3 {
+    font-size: 1.4rem;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
 .recipe-meta {
     display: flex;
     gap: 15px;
@@ -228,6 +311,7 @@ header nav a.active {
     color: #888;
     margin: 20px 0;
 }
+
 .btn-view {
     display: block;
     text-align: center;
@@ -240,45 +324,72 @@ header nav a.active {
     font-weight: bold;
     transition: all 0.3s ease;
 }
+
 .btn-view:hover {
     background-color: var(--dark-color);
     color: var(--light-color);
 }
 
 /* === TIPS SECTION === */
-.tips { padding: 80px 20px; }
+.tips {
+    padding: 80px 20px;
+}
+
 .section-header {
     display: flex;
-    justify-content: center; /* Mengubah ke tengah */
+    justify-content: center;
+    /* Mengubah ke tengah */
     align-items: center;
     margin-bottom: 30px;
 }
-.section-header h2 { margin: 0; }
+
+.section-header h2 {
+    margin: 0;
+}
 
 .tips-carousel {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
 }
+
 .tip-card {
     position: relative;
     border-radius: var(--border-radius);
     overflow: hidden;
     color: var(--light-color);
 }
-.tip-card img { width: 100%; display: block; height: 250px; object-fit: cover; transition: transform 0.3s ease; }
+
+.tip-card img {
+    width: 100%;
+    display: block;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
 .tip-card:hover img {
     transform: scale(1.05);
 }
+
 .tip-content {
     position: absolute;
-    bottom: 0; left: 0;
+    bottom: 0;
+    left: 0;
     width: 100%;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
 }
-.tip-content h3 { color: var(--light-color); }
-.tip-content a { color: var(--light-color); text-decoration: none; font-weight: bold; }
+
+.tip-content h3 {
+    color: var(--light-color);
+}
+
+.tip-content a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-weight: bold;
+}
 
 /* === ABOUT SECTION === */
 .about {
@@ -288,8 +399,17 @@ header nav a.active {
     gap: 50px;
     align-items: center;
 }
-.about-text .badge, .about-text h2 { margin-left: 0; text-align: left; }
-.about-text p { margin: 20px 0 30px 0; }
+
+.about-text .badge,
+.about-text h2 {
+    margin-left: 0;
+    text-align: left;
+}
+
+.about-text p {
+    margin: 20px 0 30px 0;
+}
+
 .about-images {
     display: grid;
     grid-template-areas:
@@ -297,15 +417,25 @@ header nav a.active {
         "img3 img2";
     gap: 15px;
 }
+
 .about-images img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: var(--border-radius);
 }
-.img1 { grid-area: img1; }
-.img2 { grid-area: img2; }
-.img3 { grid-area: img3; }
+
+.img1 {
+    grid-area: img1;
+}
+
+.img2 {
+    grid-area: img2;
+}
+
+.img3 {
+    grid-area: img3;
+}
 
 /* === SUBSCRIBE SECTION === */
 .subscribe {
@@ -314,14 +444,25 @@ header nav a.active {
     text-align: center;
     color: var(--light-color);
 }
-.subscribe h2 { color: var(--light-color); font-size: 3rem; }
-.subscribe p { max-width: 500px; margin: 1rem auto 2rem auto; }
+
+.subscribe h2 {
+    color: var(--light-color);
+    font-size: 3rem;
+}
+
+.subscribe p {
+    max-width: 500px;
+    margin: 1rem auto 2rem auto;
+}
+
 .subscribe form {
     display: flex;
     justify-content: center;
     gap: 10px;
-    flex-wrap: wrap; /* Agar responsif */
+    flex-wrap: wrap;
+    /* Agar responsif */
 }
+
 .subscribe input {
     width: 300px;
     padding: 15px;
@@ -329,7 +470,11 @@ header nav a.active {
     border: none;
     font-family: var(--font-body);
 }
-.subscribe button { padding: 15px 30px; border-radius: 25px; }
+
+.subscribe button {
+    padding: 15px 30px;
+    border-radius: 25px;
+}
 
 /* === FOOTER === */
 footer {
@@ -337,27 +482,38 @@ footer {
     color: #aaa;
     padding-top: 50px;
 }
+
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 30px;
-    flex-wrap: wrap; /* Agar responsif */
+    flex-wrap: wrap;
+    /* Agar responsif */
     gap: 20px;
 }
-.footer-content .logo { color: var(--light-color); }
-.footer-nav a, .social-icons a {
+
+.footer-content .logo {
+    color: var(--light-color);
+}
+
+.footer-nav a,
+.social-icons a {
     color: #aaa;
     text-decoration: none;
     margin-left: 20px;
     transition: color 0.3s ease;
 }
-.footer-nav a:hover, .social-icons a:hover {
+
+.footer-nav a:hover,
+.social-icons a:hover {
     color: var(--light-color);
 }
+
 .social-icons {
     font-size: 1.2rem;
 }
+
 .copyright {
     text-align: center;
     padding: 20px 0;
@@ -367,22 +523,68 @@ footer {
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 992px) {
-    .recipe-grid { grid-template-columns: 1fr 1fr; }
-    .about { grid-template-columns: 1fr; text-align: center; }
-    .about-text .badge, .about-text h2 { margin: 0 auto 10px auto; text-align: center; }
+    .recipe-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .about-text .badge,
+    .about-text h2 {
+        margin: 0 auto 10px auto;
+        text-align: center;
+    }
 }
 
 @media (max-width: 768px) {
-    h2 { font-size: 2rem; }
-    header .container { flex-direction: column; gap: 15px; }
-    header nav ul { gap: 15px; padding: 0; }
-    .recipe-grid { grid-template-columns: 1fr; }
-    .tips-carousel { grid-template-columns: 1fr; }
-    .subscribe form { flex-direction: column; align-items: center; }
-    .subscribe input { width: 100%; max-width: 400px; }
-    .footer-content { flex-direction: column; gap: 20px; }
-    .footer-nav { text-align: center; }
-    .footer-nav a, .social-icons a { margin: 0 10px; }
+    h2 {
+        font-size: 2rem;
+    }
+
+    header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header nav ul {
+        gap: 15px;
+        padding: 0;
+    }
+
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tips-carousel {
+        grid-template-columns: 1fr;
+    }
+
+    .subscribe form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .subscribe input {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-nav {
+        text-align: center;
+    }
+
+    .footer-nav a,
+    .social-icons a {
+        margin: 0 10px;
+    }
 }
 
 /* === AUTH PAGE STYLES === */
@@ -415,7 +617,8 @@ footer {
     font-weight: 700;
     margin-bottom: 0.5rem;
     display: inline-block;
-    color: var(--dark-color); /* Use site's dark color */
+    color: var(--dark-color);
+    /* Use site's dark color */
     text-decoration: none;
 }
 
@@ -447,14 +650,17 @@ footer {
 .input-group input {
     /* Set width and sizing */
     width: 100%;
-    box-sizing: border-box; /* This is key for proper layout! */
+    box-sizing: border-box;
+    /* This is key for proper layout! */
 
     /* Typography and Spacing */
     font-family: var(--body-font);
     font-size: 1rem;
-    padding: 12px 15px; /* Even padding all around */
-    padding-left: 45px; /* Extra padding for the icon */
-    
+    padding: 12px 15px;
+    /* Even padding all around */
+    padding-left: 45px;
+    /* Extra padding for the icon */
+
     /* Appearance */
     color: #333;
     background-color: #f4f4f4;
@@ -467,8 +673,10 @@ footer {
     /* Focus State */
     background-color: #fff;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15); /* Softer glow */
-    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+    /* Softer glow */
+    outline: none;
+    /* Remove default outline */
 }
 
 .forgot-password {
@@ -513,7 +721,8 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 0; /* Reset margin agar sejajar card actions */
+    margin-bottom: 0;
+    /* Reset margin agar sejajar card actions */
 }
 
 .rating-actions button {
@@ -530,11 +739,13 @@ footer {
 }
 
 .rating-actions .active-like {
-    color: #2ecc71; /* Hijau */
+    color: #2ecc71;
+    /* Hijau */
 }
 
 .rating-actions .active-dislike {
-    color: #e74c3c; /* Merah */
+    color: #e74c3c;
+    /* Merah */
 }
 
 .rating-actions span {
@@ -624,6 +835,7 @@ footer {
     font-size: 1rem;
     color: var(--text-color-light);
 }
+
 .profile-info p strong {
     display: block;
     color: var(--text-color);
@@ -645,14 +857,16 @@ footer {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem; /* Adjust as needed */
+    gap: 1.5rem;
+    /* Adjust as needed */
 }
 
 /* This makes the buttons inside our new divs line up */
 .nav-auth-links {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Adjust as needed */
+    gap: 1rem;
+    /* Adjust as needed */
 }
 
 /* Hide the 'Profil' button by default */
@@ -668,9 +882,11 @@ footer {
 /* Wrapper untuk rating dan tombol komentar */
 .card-actions {
     display: flex;
-    justify-content: space-between; /* Membuat like/dislike di kiri, komen di kanan */
+    justify-content: space-between;
+    /* Membuat like/dislike di kiri, komen di kanan */
     align-items: center;
-    margin-bottom: 15px; /* Memberi jarak ke 'recipe-meta' */
+    margin-bottom: 15px;
+    /* Memberi jarak ke 'recipe-meta' */
 }
 
 /* Tombol komentar di card utama */
@@ -714,8 +930,10 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Background lebih transparan */
-    backdrop-filter: blur(0px); /* Mulai tanpa blur */
+    background: rgba(0, 0, 0, 0.3);
+    /* Background lebih transparan */
+    backdrop-filter: blur(0px);
+    /* Mulai tanpa blur */
     z-index: 1050;
     opacity: 0;
     visibility: hidden;
@@ -725,7 +943,8 @@ footer {
 .comment-overlay.open {
     opacity: 1;
     visibility: visible;
-    backdrop-filter: blur(5px); /* Blur saat aktif */
+    backdrop-filter: blur(5px);
+    /* Blur saat aktif */
 }
 
 /* --- Sidebar Utama --- */
@@ -735,7 +954,8 @@ footer {
     height: 100vh;
     position: fixed;
     top: 0;
-    right: -420px; /* Sembunyi lebih jauh agar bayangan tidak terlihat */
+    right: -420px;
+    /* Sembunyi lebih jauh agar bayangan tidak terlihat */
     background: #ffffff;
     z-index: 1100;
     /* Shadow lebih lembut */
@@ -757,7 +977,7 @@ footer {
     align-items: center;
     padding: 20px 25px;
     border-bottom: 1px solid #f0f0f0;
-    
+
     /* Animasi Masuk */
     opacity: 0;
     transform: translateY(20px);
@@ -778,9 +998,11 @@ footer {
     cursor: pointer;
     transition: color 0.3s, transform 0.3s;
 }
+
 .close-comments-btn:hover {
     color: var(--dark-color);
-    transform: rotate(90deg); /* Tombol putar saat di-hover */
+    transform: rotate(90deg);
+    /* Tombol putar saat di-hover */
 }
 
 /* --- Kontainer List Komentar --- */
@@ -788,24 +1010,17 @@ footer {
     flex-grow: 1;
     overflow-y: auto;
     padding: 20px 25px;
-    
+
     /* Animasi Masuk */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s; /* Delay 0.1 detik */
-}
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 
-/* Item Komentar */
-.comment-item {
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f9f9f9;
-    animation: fadeIn 0.5s ease; /* Animasi saat komentar baru ditambah */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .comment-item-header {
@@ -833,7 +1048,8 @@ footer {
 }
 
 /* Loading & Empty State */
-.comment-loading, .no-comments {
+.comment-loading,
+.no-comments {
     text-align: center;
     color: #999;
     padding-top: 40px;
@@ -845,12 +1061,13 @@ footer {
     padding: 25px;
     background: #fff;
     border-top: 1px solid #f0f0f0;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.02);
-    
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.02);
+
     /* Animasi Masuk */
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s; /* Delay 0.2 detik */
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    /* Delay 0.2 detik */
 }
 
 .comment-form p {
@@ -864,7 +1081,203 @@ footer {
     width: 100%;
     padding: 12px;
     border: 1px solid #e0e0e0;
-    border-radius: 12px; /* Lebih bulat */
+    border-radius: 12px;
+    /* Lebih bulat */
+    font-family: var(--font-body);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+
+/* ======================================= */
+/* 2. STYLE BARU: SIDEBAR KOMENTAR (ANIMASI HALUS) */
+/* ======================================= */
+
+/* --- Overlay dengan Efek Blur (Glassmorphism) --- */
+.comment-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    /* Background lebih transparan */
+    backdrop-filter: blur(0px);
+    /* Mulai tanpa blur */
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.comment-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(5px);
+    /* Blur saat aktif */
+}
+
+/* --- Sidebar Utama --- */
+.comment-sidebar {
+    width: 400px;
+    max-width: 90vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -420px;
+    /* Sembunyi lebih jauh agar bayangan tidak terlihat */
+    background: #ffffff;
+    z-index: 1100;
+    /* Shadow lebih lembut */
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    /* Transisi 'Spring' yang halus (bukan linear) */
+    transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.comment-sidebar.open {
+    right: 0;
+}
+
+/* --- Header Sidebar --- */
+.comment-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.comment-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+.close-comments-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.close-comments-btn:hover {
+    color: var(--dark-color);
+    transform: rotate(90deg);
+    /* Tombol putar saat di-hover */
+}
+
+/* --- Kontainer List Komentar --- */
+.comments-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 25px;
+
+    /* Animasi Masuk */
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.comment-item-author {
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.comment-item-date {
+    font-size: 0.75rem;
+    color: #bbb;
+}
+
+.comment-item-body {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Loading & Empty State */
+.comment-loading,
+.no-comments {
+    text-align: center;
+    color: #999;
+    padding-top: 40px;
+    font-style: italic;
+}
+
+/* --- Form Kirim Komentar --- */
+.comment-form {
+    padding: 25px;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.02);
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    /* Delay 0.2 detik */
+}
+
+.comment-form p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    /* Lebih bulat */
     font-family: var(--font-body);
     resize: none;
     height: 80px;
@@ -910,4 +1323,474 @@ footer {
 .comment-sidebar.open .comment-form {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ======================================= */
+/* 3. FLOATING ACTION BUTTON (FAB) */
+/* ======================================= */
+.btn-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    /* Transisi 'Spring' yang halus (bukan linear) */
+    transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.comment-sidebar.open {
+    right: 0;
+}
+
+/* --- Header Sidebar --- */
+.comment-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.comment-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+.close-comments-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.close-comments-btn:hover {
+    color: var(--dark-color);
+    transform: rotate(90deg);
+    /* Tombol putar saat di-hover */
+}
+
+/* --- Kontainer List Komentar --- */
+.comments-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 25px;
+
+    /* Animasi Masuk */
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.comment-item-author {
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.comment-item-date {
+    font-size: 0.75rem;
+    color: #bbb;
+}
+
+.comment-item-body {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Loading & Empty State */
+.comment-loading,
+.no-comments {
+    text-align: center;
+    color: #999;
+    padding-top: 40px;
+    font-style: italic;
+}
+
+/* --- Form Kirim Komentar --- */
+.comment-form {
+    padding: 25px;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.02);
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    /* Delay 0.2 detik */
+}
+
+.comment-form p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    /* Lebih bulat */
+    font-family: var(--font-body);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+.comment-error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ======================================= */
+/* TRIGGER ANIMASI (Saat Kelas .open Aktif) */
+/* ======================================= */
+.comment-sidebar.open .comment-sidebar-header,
+.comment-sidebar.open .comments-list-container,
+.comment-sidebar.open .comment-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ======================================= */
+/* 3. FLOATING ACTION BUTTON (FAB) */
+/* ======================================= */
+.btn-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background-color: #8a4524;
+    /* Slightly darker shade of secondary color */
+    color: var(--light-color);
+}
+
+.btn-fab:active {
+    transform: scale(0.95);
+    right: 0;
+}
+
+/* --- Header Sidebar --- */
+.comment-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.comment-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+}
+
+.close-comments-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.close-comments-btn:hover {
+    color: var(--dark-color);
+    transform: rotate(90deg);
+    /* Tombol putar saat di-hover */
+}
+
+/* --- Kontainer List Komentar --- */
+.comments-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 25px;
+
+    /* Animasi Masuk */
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.comment-item-author {
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.comment-item-date {
+    font-size: 0.75rem;
+    color: #bbb;
+}
+
+.comment-item-body {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Loading & Empty State */
+.comment-loading,
+.no-comments {
+    text-align: center;
+    color: #999;
+    padding-top: 40px;
+    font-style: italic;
+}
+
+/* --- Form Kirim Komentar --- */
+.comment-form {
+    padding: 25px;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.02);
+
+    /* Animasi Masuk */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    /* Delay 0.2 detik */
+}
+
+.comment-form p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--dark-color);
+    font-size: 0.9rem;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    /* Lebih bulat */
+    font-family: var(--font-body);
+    resize: none;
+    height: 80px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
+}
+
+.comment-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.comment-form button:hover {
+    background-color: black;
+    transform: translateY(-2px);
+}
+
+.comment-error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ======================================= */
+/* TRIGGER ANIMASI (Saat Kelas .open Aktif) */
+/* ======================================= */
+.comment-sidebar.open .comment-sidebar-header,
+.comment-sidebar.open .comments-list-container,
+.comment-sidebar.open .comment-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ======================================= */
+/* 3. FLOATING ACTION BUTTON (FAB) */
+/* ======================================= */
+.btn-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background-color: #8a4524;
+    /* Slightly darker shade of secondary color */
+    color: var(--light-color);
+}
+
+.btn-fab:active {
+    transform: scale(0.95);
+}
+
+/* ======================================= */
+/* 4. LOGOUT BUTTON (TOP RIGHT) */
+/* ======================================= */
+.btn-logout-top {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ======================================= */
+/* 5. BACK BUTTON (TOP LEFT) */
+/* ======================================= */
+.btn-back-top {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-back-top:hover {
+    transform: scale(1.1);
+    background-color: #8a4524;
+    color: var(--light-color);
 }
