@@ -1,243 +1,169 @@
-// public/js/script.js
+/* ============================
+   recipe.js — Fixed Version
+   ============================ */
 
-// 1. IMPORT
-import supabase from './client.js';
+import { auth, db } from './firebase-init.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// 2. AUTH LOGIC
-async function setupNav() {
-    const { data: { user } } = await supabase.auth.getUser();
-    const navGuest = document.getElementById('nav-guest');
-    const navUser = document.getElementById('nav-user');
+import {
+  getComments,
+  addComment,
+  subscribeComments
+} from './comment.js';
 
-    if (user) {
-        // User is logged in
-        if (navGuest) navGuest.style.display = 'none';
-        if (navUser) navUser.style.display = 'flex'; // 'flex' makes it visible
-    } else {
-        // User is logged out
-        if (navGuest) navGuest.style.display = 'flex';
-        if (navUser) navUser.style.display = 'none';
-    }
+let CURRENT_RECIPE_ID = null;
+let commentsUnsub = null;
+
+/* ===========
+   UTIL
+   =========== */
+function escapeHTML(str) {
+  return str ? str.replace(/[&<>'"]/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;',
+    "'": '&#39;', '"': '&quot;'
+  }[c])) : '';
 }
 
-// Listener khusus untuk setup Navigasi
-document.addEventListener('DOMContentLoaded', () => {
-    setupNav();
-});
+/* =====================
+   LOAD RECIPE DETAIL
+   ===================== */
+async function loadRecipeDetail(recipeId) {
+  CURRENT_RECIPE_ID = recipeId;
 
-// Listener untuk perubahan status login
-supabase.auth.onAuthStateChange((event, session) => {
-    setupNav();
-});
+  const ref = doc(db, 'recipes', recipeId);
+  const snap = await getDoc(ref);
 
+  if (!snap.exists()) {
+    document.getElementById('recipe-title').textContent = 'Resep tidak ditemukan';
+    return;
+  }
 
-// 3. RECIPE VARIABLES & DOM REFS
-let allRecipes = [];
-const recipeGrid = document.getElementById("recipe-grid");
-const loadingMessage = document.getElementById("loading-message");
-const filterButtons = document.querySelectorAll(".filter-btn");
+  const recipe = snap.data();
 
+  document.getElementById('recipe-title').textContent = recipe.title || '';
+  document.getElementById('recipe-author').textContent = recipe.username || 'Tanpa nama';
+  document.getElementById('recipe-date').textContent =
+    recipe.createdAt?.toDate?.().toLocaleString() || '—';
+  document.getElementById('recipe-content').textContent = recipe.content || '';
+}
 
-// 4. RECIPE FUNCTIONS
+/* =====================
+   COMMENTS
+   ===================== */
 
-/**
- * ✅ FUNGSI BARU: Membuat kartu resep
- * Versi ini menggunakan ikon komentar + counter, dan menghapus textarea.
- */
-function createRecipeCard(recipe) {
-    const newCommentSummary = `
-        <div class="comment-summary">
-            <button class="comment-toggle-btn" title="Lihat Komentar">
-                <i class="fa-solid fa-comments"></i>
-                <span class="comment-count">${recipe.comment_count || 0}</span>
-            </button>
+function renderComments(list = []) {
+  const container = document.getElementById('comments-container');
+  if (!container) return;
+
+  if (!list.length) {
+    container.innerHTML = '<p class="empty-text">Belum ada komentar</p>';
+    return;
+  }
+
+  container.innerHTML = list
+    .map(c => `
+      <div class="comment-item">
+        <div class="comment-header">
+          <span class="comment-author">${escapeHTML(
+            c.displayName || c.username || c.userEmail || "Anonim"
+          )}</span>
+          <span class="comment-date">${c.createdAt?.toDate?.().toLocaleString() || ""}</span>
         </div>
-    `;
-
-    return `
-    <article class="recipe-card" data-kategori="${recipe.category}" data-id="${recipe.id}">
-      <div class="recipe-image">
-        <img src="${recipe.image}" 
-             alt="${recipe.title}"
-             onerror="this.onerror=null; this.src='https://placehold.co/400x200/cccccc/000000?text=Image+Missing';">
+        <div class="comment-body">${escapeHTML(c.text || '')}</div>
       </div>
-      <div class="card-content">
-        <h3>${recipe.title}</h3>
-        <p>${recipe.description}</p>
-        
-        <div class="card-actions">
-            <div class="rating-actions">
-                <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i></button>
-                <span class="like-count">0</span>
-                <button class="dislike-btn"><i class="fa-solid fa-thumbs-down"></i></button>
-                <span class="dislike-count">0</span>
-            </div>
-            ${newCommentSummary}
-        </div>
-
-        <div class="recipe-meta">
-          <span>${recipe.time}</span>
-          <span>${recipe.difficulty}</span>
-          <span>${recipe.servings}</span>
-        </div>
-        <a href="#" class="btn-view">Lihat Resep</a>
-      </div>
-    </article>
-  `;
+    `)
+    .join('');
 }
 
-/**
- * ✅ FUNGSI ORIGINAL: Menampilkan resep ke DOM
- */
-function renderRecipes(recipesToDisplay) {
-    if (!recipeGrid) return; // Pastikan recipeGrid ada
-    recipeGrid.innerHTML = "";
+async function loadCommentsOnce(recipeId) {
+  const list = await getComments(recipeId);
+  renderComments(list);
+}
 
-    if (!recipesToDisplay.length) {
-        recipeGrid.innerHTML = '<p class="text-center">Tidak ada resep untuk kategori ini.</p>';
-        return;
+function subscribeCommentsRealtime(recipeId) {
+  if (commentsUnsub) return; // cegah double listener
+  if (typeof subscribeComments !== 'function') return null;
+
+  commentsUnsub = subscribeComments(recipeId, items => renderComments(items));
+}
+
+/* =====================
+   COMMENT INPUT
+   ===================== */
+async function setupCommentInput() {
+  const form = document.getElementById('comment-form');
+  const input = document.getElementById('comment-input');
+  const errorMsg = document.getElementById('error-message');
+
+  if (!form || !input) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+
+    if (!text) {
+      if (errorMsg) errorMsg.textContent = 'Komentar tidak boleh kosong.';
+      return;
     }
 
-    const fragment = document.createDocumentFragment();
-    recipesToDisplay.forEach(recipe => {
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = createRecipeCard(recipe);
-        const card = tempDiv.querySelector(".recipe-card");
-        if (card) fragment.appendChild(card);
-    });
-    recipeGrid.appendChild(fragment);
-}
-
-/**
- * ✅ FUNGSI ORIGINAL: Filter resep
- */
-function handleFilter(category) {
-    if (category === "all" || category === "semua") {
-        renderRecipes(allRecipes);
-    } else {
-        const filtered = allRecipes.filter(r =>
-            r.category.toLowerCase().includes(category.toLowerCase())
-        );
-        renderRecipes(filtered);
-    }
-}
-
-/**
- * ✅ FUNGSI ORIGINAL: Ambil data resep
- */
-async function fetchRecipes() {
-    if (loadingMessage) loadingMessage.textContent = "Memuat resep...";
     try {
-        const res = await fetch("/api/recipes");
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        allRecipes = await res.json();
-        renderRecipes(allRecipes);
+      await addComment({
+        postId: CURRENT_RECIPE_ID,
+        text: text
+      });
+
+      // kalau tidak realtime, reload saja
+      if (!commentsUnsub) {
+        await loadCommentsOnce(CURRENT_RECIPE_ID);
+      }
+
+      input.value = "";
+      if (errorMsg) errorMsg.textContent = "";
     } catch (err) {
-        console.error("Gagal memuat resep:", err);
-        if (recipeGrid) {
-            recipeGrid.innerHTML = `<p class="error-message">Gagal memuat resep (${err.message})</p>`;
-        }
-    } finally {
-        if (loadingMessage) loadingMessage.remove();
+      console.error('addComment error', err);
+      if (errorMsg) errorMsg.textContent = 'Gagal mengirim komentar.';
     }
+  });
 }
 
+/* =====================
+   PAGE INIT
+   ===================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const recipeId = params.get('id');
 
-// 5. RECIPE EVENT LISTENERS
-document.addEventListener("DOMContentLoaded", () => {
-    // Hanya jalankan ini jika kita di halaman utama (ada recipe-grid)
-    if (recipeGrid) {
-        fetchRecipes();
+  if (!recipeId) {
+    document.getElementById('recipe-title').textContent = 'ID Resep tidak ditemukan';
+    return;
+  }
 
-        // Filter button logic
-        filterButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                filterButtons.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                const category = btn.dataset.category;
-                handleFilter(category);
-            });
-        });
+  // Load detail resep
+  loadRecipeDetail(recipeId);
 
-        // ✅ LISTENER KLIK BARU (Event Delegation)
-        // Mengurus klik pada tombol "Lihat Resep" dan "Komentar"
-        recipeGrid.addEventListener("click", e => {
-            const card = e.target.closest(".recipe-card");
-            if (!card) return; // Klik di luar card
+  // Load komentar pertama kali
+  loadCommentsOnce(recipeId);
 
-            const id = card.dataset.id;
-            
-            // Target 1: Tombol "Lihat Resep"
-            const buttonView = e.target.closest(".btn-view");
-            if (buttonView) {
-                e.preventDefault(); 
-                window.location.href = `/recipe.html?id=${id}`;
-                return; // Hentikan eksekusi
-            }
+  // Realtime komentar
+  subscribeCommentsRealtime(recipeId);
 
-            // Target 2: Tombol Komentar BARU
-            const buttonComment = e.target.closest(".comment-toggle-btn");
-            if (buttonComment) {
-                e.preventDefault();
-                // Redirect ke halaman resep DAN minta buka komentar
-                window.location.href = `/recipe.html?id=${id}&showComments=true`;
-                return; // Hentikan eksekusi
-            }
-        });
-    }
+  // Setup form input komentar
+  setupCommentInput();
 });
 
+/* =====================
+   OPTIONAL — DELETE / UPDATE RECIPE
+   ===================== */
+export async function updateRecipe(id, data) {
+  await updateDoc(doc(db, 'recipes', id), data);
+}
 
-// 6. LIKE & DISLIKE FUNCTIONALITY (Global Listener)
-document.addEventListener("click", function (e) {
-    // Cek apakah yang diklik adalah tombol like/dislike
-    const ratingActions = e.target.closest(".rating-actions");
-    if (!ratingActions) return; // Keluar jika bukan klik di area rating
-
-    const likeBtn = e.target.closest(".like-btn");
-    const dislikeBtn = e.target.closest(".dislike-btn");
-
-    // LIKE BUTTON CLICKED
-    if (likeBtn) {
-        const likeCount = ratingActions.querySelector(".like-count");
-        const dislikeBtnInside = ratingActions.querySelector(".dislike-btn");
-        const dislikeCount = ratingActions.querySelector(".dislike-count");
-
-        // Toggle like
-        if (likeBtn.classList.contains("active-like")) {
-            likeBtn.classList.remove("active-like");
-            likeCount.textContent = parseInt(likeCount.textContent) - 1;
-        } else {
-            likeBtn.classList.add("active-like");
-            likeCount.textContent = parseInt(likeCount.textContent) + 1;
-
-            // Jika dislike aktif → matikan
-            if (dislikeBtnInside.classList.contains("active-dislike")) {
-                dislikeBtnInside.classList.remove("active-dislike");
-                dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
-            }
-        }
-    }
-
-    // DISLIKE BUTTON CLICKED
-    if (dislikeBtn) {
-        const dislikeCount = ratingActions.querySelector(".dislike-count");
-        const likeBtnInside = ratingActions.querySelector(".like-btn");
-        const likeCount = ratingActions.querySelector(".like-count");
-
-        // Toggle dislike
-        if (dislikeBtn.classList.contains("active-dislike")) {
-            dislikeBtn.classList.remove("active-dislike");
-            dislikeCount.textContent = parseInt(dislikeCount.textContent) - 1;
-        } else {
-            dislikeBtn.classList.add("active-dislike");
-            dislikeCount.textContent = parseInt(dislikeCount.textContent) + 1;
-
-            // Jika like aktif → matikan
-            if (likeBtnInside.classList.contains("active-like")) {
-                likeBtnInside.classList.remove("active-like");
-                likeCount.textContent = parseInt(likeCount.textContent) - 1;
-            }
-        }
-    }
-});
+export async function deleteRecipeById(id) {
+  await deleteDoc(doc(db, 'recipes', id));
+}
