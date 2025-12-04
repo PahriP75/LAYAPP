@@ -30,8 +30,8 @@ export function subscribeLikeInfo(recipeId, callback) {
     });
 
     callback({
-      likes,
-      dislikes,
+      like,
+      dislike,
       userType,
       liked: userType === 'like',
       disliked: userType === 'dislike'
