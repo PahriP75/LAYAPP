@@ -1,75 +1,42 @@
-// public/js/comment.js
+import { db, auth } from './firebase-init.js';
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// Berdasarkan file auth.js dan script.js, kamu sudah menggunakan module,
-// jadi kita tambahkan 'export' dan 'import'
-import supabase from './client.js';
+// ...existing code...
+export function subscribeComments(postId, callback) {
+  const q = query(
+    collection(db, 'comment'),
+    where('postId', '==', postId),
+    orderBy('createdAt', 'asc')
+  );
+  return onSnapshot(q, snap => {
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    callback(items);
+  }, err => {
+    console.error('comments onSnapshot error:', err);
+    callback([]);
+  });
+}
 
-/**
- * FUNGSI BARU: Mengambil semua komentar untuk satu resep
- * Kita juga mengambil 'username' dari tabel 'profiles'
- */
-export const getComments = async (recipeId) => {
-  if (!recipeId) return [];
-
-  const { data, error } = await supabase
-    .from('comments')
-    .select(`
-      id,
-      created_at,
-      comment,
-      profiles ( username ) 
-    `)
-    .eq('recipe_id', recipeId)
-    .order('created_at', { ascending: false }); // Komentar terbaru di atas
-
-  if (error) {
-    console.error("❌ Error mengambil komentar:", error.message);
-    return [];
-  }
-
-  return data;
-};
-
-/**
- * FUNGSI (DIMODIFIKASI): Menambahkan komentar baru
- * Kita tambahkan alert dan return null agar lebih jelas
- */
-export const addComment = async (recipeId, comment) => {
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    alert("Anda harus login untuk menambahkan komentar.");
-    console.error("❌ Pengguna belum login.");
-    return null; // Hentikan fungsi
-  }
-
-  if (!comment?.trim()) {
-    alert("Komentar tidak boleh kosong.");
-    console.error("❌ Komentar tidak boleh kosong.");
-    return null; // Hentikan fungsi
-  }
-
-  const { data, error } = await supabase
-    .from("comments")
-    .insert({
-      recipe_id: recipeId,
-      user_id: user.id,
-      comment,
-    })
-    .select(`
-      id,
-      created_at,
-      comment,
-      profiles ( username )
-    `) // Ambil data lengkap setelah insert
-    .single(); // Kembalikan sebagai satu objek
-
-  if (error) {
-    console.error("❌ Error saat menyimpan komentar:", error);
-    alert("Gagal mengirim komentar: " + error.message);
-    return null;
-  }
-
-  console.log("✅ Komentar berhasil tersimpan:", data);
-  return data; // Kembalikan data komentar baru
-};
+export async function addComment({ postId, text }) {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const payload = {
+    postId,
+    text,
+    userId: user.uid,
+    userEmail: user.email || null,
+    createdAt: serverTimestamp()
+  };
+  const ref = await addDoc(collection(db, 'comment'), payload);
+  return ref.id;
+}
