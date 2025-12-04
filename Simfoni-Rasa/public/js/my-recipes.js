@@ -1,25 +1,43 @@
-import supabase from './client.js';
+// Import fungsi yang diperlukan dari Firebase SDK
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const grid = document.getElementById('my-recipes-grid');
+// 1. Ganti Konfigurasi Firebase Anda di sini
+const firebaseConfig = {
+    apiKey: "AIzaSyC6YhPKsphJHtLh96_-Yd_ptLMsu-m5mLw",
+    authDomain: "simfoni-rasa.firebaseapp.com",
+    projectId: "simfoni-rasa",
+    storageBucket: "simfoni-rasa.appspot.com",
+    messagingSenderId: "1095181533400",
+    appId: "1:1095181533400:web:d188ae6dc9682874c857ad"
+};
 
-    // Check auth
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-        window.location.href = 'login.html';
-        return;
-    }
-    const userEmail = user.email;
+// Inisialisasi Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Nama koleksi resep di Firestore Anda
+const RECIPES_COLLECTION = 'recipes'; 
+
+// Fungsi untuk memuat dan menampilkan resep
+async function loadMyRecipes(userEmail, grid) {
+    // 1. Buat Query: Filter resep berdasarkan email pengguna (author)
+    const q = query(
+        collection(db, RECIPES_COLLECTION),
+        where("author", "==", userEmail) // Asumsi field 'author' di Firestore menyimpan email pengguna
+    );
 
     try {
-        // Fetch all recipes
-        const response = await fetch('/api/recipes');
-        if (!response.ok) throw new Error('Gagal mengambil data resep');
-
-        const allRecipes = await response.json();
-
-        // Filter recipes by author
-        const myRecipes = allRecipes.filter(recipe => recipe.author === userEmail);
+        const querySnapshot = await getDocs(q);
+        const myRecipes = [];
+        
+        // 2. Map snapshot ke array data resep
+        querySnapshot.forEach((doc) => {
+            // Penting: Sertakan ID dokumen dari Firestore
+            myRecipes.push({ id: doc.id, ...doc.data() }); 
+        });
 
         grid.innerHTML = '';
 
@@ -28,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
+        // 3. Render Resep ke Grid
         myRecipes.forEach(recipe => {
             const card = document.createElement('div');
             card.className = 'recipe-card';
@@ -41,17 +60,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <span><i class="fas fa-user-friends"></i> ${recipe.servings || '-'}</span>
                     </div>
                     <div class="card-actions" style="display: flex; gap: 10px; margin-top: 10px;">
-                         <a href="recipe.html?id=${recipe.id}" class="btn-view" style="flex: 1; text-align: center; background: var(--primary-color); color: white; padding: 10px; border-radius: 25px; text-decoration: none;">Lihat</a>
-                         <button class="btn-delete" data-id="${recipe.id}" style="background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 25px; cursor: pointer;">
+                        <a href="recipe.html?id=${recipe.id}" class="btn-view" style="flex: 1; text-align: center; background: var(--primary-color); color: white; padding: 10px; border-radius: 25px; text-decoration: none;">Lihat</a>
+                        <button class="btn-delete" data-id="${recipe.id}" style="background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 25px; cursor: pointer;">
                             <i class="fas fa-trash"></i>
-                         </button>
+                        </button>
                     </div>
                 </div>
             `;
             grid.appendChild(card);
         });
 
-        // Add event listeners for delete buttons
+        // 4. Tambahkan Event Listener untuk Tombol Hapus
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 if (confirm('Apakah Anda yakin ingin menghapus resep ini?')) {
@@ -59,14 +78,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const id = btnElement.dataset.id;
 
                     try {
-                        const res = await fetch(`/api/recipes?id=${id}`, { method: 'DELETE' });
-                        if (res.ok) {
-                            alert('Resep berhasil dihapus');
-                            location.reload();
-                        } else {
-                            const data = await res.json();
-                            alert('Gagal menghapus resep: ' + (data.error || 'Unknown error'));
-                        }
+                        // Hapus dokumen di Firestore
+                        await deleteDoc(doc(db, RECIPES_COLLECTION, id)); 
+                        
+                        alert('Resep berhasil dihapus');
+                        location.reload();
+
                     } catch (err) {
                         console.error('Error deleting recipe:', err);
                         alert('Terjadi kesalahan saat menghapus resep.');
@@ -79,4 +96,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching recipes:', error);
         grid.innerHTML = '<p class="error-text">Gagal memuat resep.</p>';
     }
+}
+
+// Handler utama DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('my-recipes-grid');
+
+    // 5. Cek Otentikasi menggunakan onAuthStateChanged
+    // Ini adalah cara yang lebih disukai untuk menangani status auth di Firebase
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Pengguna sudah login
+            const userEmail = user.email;
+            loadMyRecipes(userEmail, grid);
+        } else {
+            // Pengguna belum login
+            window.location.href = 'login.html';
+        }
+    });
 });
