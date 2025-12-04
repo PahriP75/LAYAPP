@@ -42,7 +42,7 @@ function renderComments(comments = []) {
 async function loadComments(recipeId) {
     const listContainer = document.getElementById('comments-list-container');
     listContainer.innerHTML = '<p class="comment-loading">Memuat komentar...</p>';
-    
+
     const comments = await getComments(recipeId);
     renderComments(comments);
 }
@@ -66,7 +66,7 @@ function closeComments() {
 
 // 6. Fungsi utama yang berjalan saat halaman dimuat
 document.addEventListener("DOMContentLoaded", async () => {
-    
+
     // --- Setup Event Listeners ---
     // Tombol "Lihat Komentar" sekarang menjadi TOMBOL TOGGLE
     if (showBtn) {
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const recipe = recipes.find(r => r.id === CURRENT_RECIPE_ID);
 
         if (!recipe) {
-             document.body.innerHTML = `
+            ocument.body.innerHTML = `
                 <h2 style="text-align:center; margin-top: 50px;">Resep tidak ditemukan.</h2>
                 <p style="text-align:center;"><a href="/index.html">Kembali ke beranda</a></p>
             `;
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else {
                 // Pesan error (alert) akan muncul dari 'addComment'
             }
-            
+
             submitBtn.disabled = false;
             submitBtn.textContent = "Kirim";
         });
